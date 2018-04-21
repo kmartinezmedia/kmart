@@ -1,0 +1,91 @@
+{
+  "name": "kmart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "prepare": "npm run clean && npm run build",
+    "clean": "rimraf lib",
+    "prestart": "node config/prepare.js",
+    "start": "babel src --watch -d lib",
+    "prebuild": "node config/prepare.js",
+    "build": "babel src -d lib"
+  },
+  "author": "Katherine Martinez",
+  "contributors": [
+    {
+      "name": "Katherine Martinez",
+      "email": "kmartinezmedia@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.36",
+    "@babel/runtime": "^7.0.0-beta.36",
+    "animejs": "^2.2.0",
+    "axios": "^0.17.1",
+    "clean-element": "^1.0.0",
+    "clean-tag": "^1.0.4",
+    "common-tags": "^1.5.1",
+    "dom-helpers": "^3.2.1",
+    "glamor": "^2.20.40",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.6.1",
+    "react": "^16.1.1",
+    "react-animate-height": "^0.10.8",
+    "react-dom": "^16.2.0",
+    "react-ratio": "^0.1.5",
+    "react-router-dom": "^4.2.2",
+    "react-swipeable-views-core": "^0.12.11",
+    "rimraf": "^2.6.2",
+    "scrollmonitor": "^1.2.4",
+    "styled-components": "2.2.3",
+    "styled-system": "^2.1.2",
+    "warning": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.36",
+    "@babel/core": "^7.0.0-beta.36",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.36",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.36",
+    "@babel/plugin-transform-regenerator": "^7.0.0-beta.36",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.36",
+    "@babel/preset-env": "^7.0.0-beta.36",
+    "@babel/preset-react": "^7.0.0-beta.36",
+    "@babel/preset-stage-2": "^7.0.0-beta.36",
+    "babel-plugin-lodash": "^3.3.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": ["last 2 versions", "safari >= 7"]
+          }
+        }
+      ],
+      "@babel/react",
+      "@babel/stage-2"
+    ],
+    "plugins": [
+      [
+        "lodash",
+        {
+          "id": ["lodash"]
+        }
+      ],
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "helpers": false,
+          "polyfill": false,
+          "regenerator": true
+        }
+      ],
+      "@babel/plugin-transform-regenerator",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  }
+}
