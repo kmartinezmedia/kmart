@@ -30,6 +30,7 @@
     "dom-helpers": "^3.2.1",
     "glamor": "^2.20.40",
     "lodash": "^4.17.4",
+    "number-to-words": "^1.2.3",
     "prop-types": "^15.6.1",
     "react": "^16.1.1",
     "react-animate-height": "^0.10.8",
@@ -61,7 +62,10 @@
         "@babel/preset-env",
         {
           "targets": {
-            "browsers": ["last 2 versions", "safari >= 7"]
+            "browsers": [
+              "last 2 versions",
+              "safari >= 7"
+            ]
           }
         }
       ],
@@ -72,7 +76,9 @@
       [
         "lodash",
         {
-          "id": ["lodash"]
+          "id": [
+            "lodash"
+          ]
         }
       ],
       [

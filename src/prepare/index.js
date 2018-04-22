@@ -1,12 +1,16 @@
 const fs = require("fs");
+const path = require("path");
 const spacePx = [0, 8, 16, 24, 32, 64, 96, 128, 160, 192];
+const { startsWith, isNaN } = require("lodash");
+const numToWords = require("number-to-words");
 
-const getFileNames = (dir, extension = false) => {
+const getFileNames = ({ dir, showExtension }) => {
   const files = fs
-    .readdirSync(`src/${dir}`)
+    .readdirSync(dir)
+    .filter(x => x.includes("."))
     .filter(x => x.split(".")[0] !== "index")
     .filter(x => x.split(".")[1] !== "DS_Store");
-  if (extension) {
+  if (showExtension) {
     return files;
   } else {
     return files.map(item => item.split(".")[0]);
@@ -15,35 +19,73 @@ const getFileNames = (dir, extension = false) => {
 
 module.exports.getFileNames = getFileNames;
 
-module.exports.generateExports = ({
+const generateExportNames = async ({
+  files,
+  defaults,
+  wildcard,
+  showExtension
+}) => {
+  const filteredFiles = files
+    .filter(file => !startsWith(file, "."))
+    .filter(file => !file.includes("index"))
+    .filter(file => file !== "");
+  return (
+    "" +
+    filteredFiles
+      .map(x => {
+        let name = x.split(".")[0];
+        let extension = x.split(".")[1];
+        let filename;
+        if (extension !== undefined) {
+          filename = extension === "js" ? name : x;
+        } else {
+          filename = x;
+        }
+        if (!isNaN(parseInt(name))) {
+          name = numToWords.toWords(name);
+        }
+        if (defaults) {
+          return `export { default as ${name} } from "./${filename}";`;
+        } else if (wildcard) {
+          return `export * from "./${filename}";`;
+        }
+      })
+      .join("\n")
+  );
+  ("");
+};
+
+async function getContents({ dir, defaults, wildcard, showExtension }) {
+  let fileNames = [];
+  await fs.readdirSync(dir).forEach(async item => {
+    const contentPath = path.join(dir, item);
+    if (fs.statSync(contentPath).isDirectory()) {
+      getContents({
+        dir: contentPath,
+        defaults,
+        wildcard,
+        showExtension
+      });
+    }
+    fileNames.push(item);
+  });
+  const fileContents = await generateExportNames({
+    files: fileNames,
+    defaults,
+    wildcard
+  });
+  return await fs.writeFileSync(path.join(dir, "index.js"), fileContents);
+}
+
+module.exports.generateExports = async ({
   dir,
   defaults = false,
   wildcard = false,
-  write = true
+  write = true,
+  showExtension = false
 }) => {
-  const files = getFileNames(dir, true);
-  const exportedFiles =
-    "" +
-    files
-      .map(x => {
-        if (defaults) {
-          return `export { default as ${x.split(".")[0]} } from "./${
-            x.split(".")[1] === "js" ? x.split(".")[0] : x
-          }";`;
-        } else if (wildcard) {
-          return `export * from "./${
-            x.split(".")[1] === "js" ? x.split(".")[0] : x
-          }";`;
-        }
-      })
-      .join("\n");
-  ("");
-
-  if (write) {
-    return fs.writeFileSync(`src/${dir}/index.js`, exportedFiles);
-  } else {
-    return { files, exportedFiles };
-  }
+  const directoryPath = path.join(process.cwd(), dir);
+  await getContents({ dir: directoryPath, defaults, wildcard, showExtension });
 };
 
 module.exports.generateImports = ({ dir }) => {
