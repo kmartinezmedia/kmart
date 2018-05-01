@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { Text } from "./Text";
 
 export const Link = Text.withComponent("a").extend`
@@ -8,6 +9,10 @@ export const Link = Text.withComponent("a").extend`
 `;
 
 export const UnstyledLink = styled.a`
+  text-decoration: none;
+`;
+
+export const UnstyledRouterLink = styled(ReactRouterLink)`
   text-decoration: none;
 `;
 

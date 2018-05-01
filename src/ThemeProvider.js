@@ -19,7 +19,7 @@ const injectGlobals = mergedTheme =>
   }
 
   html {
-    font-family: ${mergedTheme.fonts[mergedTheme.fonts.default]};
+    font-family: ${mergedTheme.fonts.default};
     font-size: ${mergedTheme.fontSizesPx.p}px;
     line-height: ${mergedTheme.baseLineHeight / mergedTheme.baseFontSize};
     box-sizing: border-box;

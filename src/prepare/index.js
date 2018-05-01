@@ -23,14 +23,17 @@ const generateExportNames = async ({
   files,
   defaults,
   wildcard,
-  showExtension
+  showExtension,
+  requires
 }) => {
   const filteredFiles = files
     .filter(file => !startsWith(file, "."))
     .filter(file => !file.includes("index"))
     .filter(file => file !== "");
+  const firstLine = requires ? `module.exports = {` : "";
+  const lastLine = +requires ? "}" : "";
   return (
-    "" +
+    firstLine +
     filteredFiles
       .map(x => {
         let name = x.split(".")[0];
@@ -48,14 +51,22 @@ const generateExportNames = async ({
           return `export { default as ${name} } from "./${filename}";`;
         } else if (wildcard) {
           return `export * from "./${filename}";`;
+        } else if (requires) {
+          return `${name}: require("./${filename}"),`;
         }
       })
-      .join("\n")
+      .join("\n") +
+    lastLine
   );
-  ("");
 };
 
-async function getContents({ dir, defaults, wildcard, showExtension }) {
+async function getContents({
+  dir,
+  defaults,
+  wildcard,
+  showExtension,
+  requires
+}) {
   let fileNames = [];
   await fs.readdirSync(dir).forEach(async item => {
     const contentPath = path.join(dir, item);
@@ -64,7 +75,8 @@ async function getContents({ dir, defaults, wildcard, showExtension }) {
         dir: contentPath,
         defaults,
         wildcard,
-        showExtension
+        showExtension,
+        requires
       });
     }
     fileNames.push(item);
@@ -72,7 +84,8 @@ async function getContents({ dir, defaults, wildcard, showExtension }) {
   const fileContents = await generateExportNames({
     files: fileNames,
     defaults,
-    wildcard
+    wildcard,
+    requires
   });
   return await fs.writeFileSync(path.join(dir, "index.js"), fileContents);
 }
@@ -82,10 +95,17 @@ module.exports.generateExports = async ({
   defaults = false,
   wildcard = false,
   write = true,
-  showExtension = false
+  showExtension = false,
+  requires = false
 }) => {
   const directoryPath = path.join(process.cwd(), dir);
-  await getContents({ dir: directoryPath, defaults, wildcard, showExtension });
+  await getContents({
+    dir: directoryPath,
+    defaults,
+    wildcard,
+    showExtension,
+    requires
+  });
 };
 
 module.exports.generateImports = ({ dir }) => {
