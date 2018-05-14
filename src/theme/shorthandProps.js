@@ -21,6 +21,9 @@ export default {
   flex: {
     display: "flex"
   },
+  flex1: {
+    flex: 1
+  },
   midY: {
     position: "absolute",
     top: "50%",
