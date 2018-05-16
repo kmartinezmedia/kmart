@@ -38,6 +38,17 @@ export const initThemeProvider = function(props, cb) {
     });
 
   // Add element position to prototype
+  !Document.prototype.hasOwnProperty("width") &&
+    Object.defineProperty(Document.prototype, "width", {
+      get: function() {
+        return Math.max(
+          document.documentElement.clientWidth,
+          window.innerWidth || 0
+        );
+      }
+    });
+
+  // Add element position to prototype
   !Document.prototype.hasOwnProperty("atTop") &&
     Object.defineProperty(Document.prototype, "atTop", {
       get: function() {

@@ -63,7 +63,7 @@ export default {
   noRepeat: {
     backgroundRepeat: "no-repeat"
   },
-  flexWrap: {
+  wrap: {
     flexWrap: "wrap"
   },
   columns: {
@@ -216,6 +216,17 @@ export default {
   z2: {
     zIndex: 2
   },
+  pointer: {
+    cursor: "pointer"
+  },
+  circle: {
+    borderRadius: "50%"
+  },
+  halfRadius: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0
+  },
+  ...spaceProps,
   shadow1: {
     ...shadows[0]
   },
@@ -236,16 +247,5 @@ export default {
   },
   shadow7: {
     ...shadows[6]
-  },
-  pointer: {
-    cursor: "pointer"
-  },
-  circle: {
-    borderRadius: "50%"
-  },
-  halfRadius: {
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0
-  },
-  ...spaceProps
+  }
 };
