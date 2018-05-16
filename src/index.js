@@ -4,4 +4,3 @@ export * from "./utils";
 export * from "./core";
 export * from "./widgets";
 export * from "./theme";
-export * from "./prepare";

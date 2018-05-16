@@ -3,37 +3,19 @@ import { breakpoints, devices, responsive } from "./responsive";
 import { space, spacePx } from "./space";
 import { transitions } from "./transitions";
 import { sketchFontStyles } from "./sketchStyleGuide";
-import { rems, themeToProps, setupComponent, applyProps } from "./utils";
+import { rems, themeToProps, setupComponent } from "./utils";
 import { functions } from "./functions";
 import shorthandAttributes from "./shorthandAttributes";
 import shorthandProps from "./shorthandProps";
 import spaceMixins from "./spaceMixins";
-
-import {
-  baseScale,
-  baseFontSize,
-  baseLineHeight,
-  fonts,
-  fontSizes,
-  fontSizesPx,
-  fontWeights,
-  lineHeights
-} from "./typography";
+import * as typography from "./typography";
 
 export const theme = {
   ...functions,
+  ...typography,
   shorthandAttributes,
-  shorthandProps: { ...shorthandProps, ...spaceMixins },
+  shorthandProps,
   setupComponent,
-  applyProps,
-  baseScale,
-  baseFontSize,
-  baseLineHeight,
-  fonts,
-  fontSizes,
-  fontSizesPx,
-  fontWeights,
-  lineHeights,
   colors,
   breakpoints,
   devices,

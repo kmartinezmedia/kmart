@@ -1,9 +1,8 @@
 import React from "react";
+import Ratio from "react-ratio";
 import PropTypes from "prop-types";
-import { propTypes } from "styled-system";
-import shorthandAttributes from "../theme/shorthandAttributes";
 import shorthandProps from "../theme/shorthandProps";
-import ReactRatio from "react-ratio";
+import shorthandAttributes from "../theme/shorthandAttributes";
 
 const cleanElement = Component => {
   return class Cleaned extends React.Component {
@@ -14,7 +13,6 @@ const cleanElement = Component => {
         if (keys.includes(key)) continue;
         next[key] = this.props[key];
       }
-
       return React.createElement(Component, {
         ...next,
         ref: el => (this.el = el)
@@ -23,18 +21,10 @@ const cleanElement = Component => {
   };
 };
 
-export const CleanDiv = cleanElement("div");
-export const CleanButton = cleanElement("button");
-export const CleanImg = cleanElement("img");
-export const CleanSection = cleanElement("section");
-export const CleanRatio = cleanElement(ReactRatio);
-
-const sAttrs = Object.keys(shorthandAttributes).reduce(
-  (prev, next) => ({ ...prev, ...propTypes[next] }),
-  {}
-);
-
-const sProps = Object.keys(shorthandProps).reduce(
+const mixinNames = Object.keys({
+  ...shorthandProps,
+  ...shorthandAttributes
+}).reduce(
   (prev, next) => ({
     ...prev,
     [next]: PropTypes.oneOfType([
@@ -46,32 +36,26 @@ const sProps = Object.keys(shorthandProps).reduce(
   {}
 );
 
-export const defaultPropTypes = {
-  ...sAttrs,
-  ...sProps
-};
+export const CleanDiv = cleanElement("div");
+export const CleanSpan = cleanElement("span");
+export const CleanButton = cleanElement("button");
+export const CleanA = cleanElement("a");
+export const CleanImg = cleanElement("img");
+export const CleanSection = cleanElement("section");
+export const CleanArticle = cleanElement("article");
+export const CleanIframe = cleanElement("iframe");
+export const CleanInput = cleanElement("input");
+export const CleanSelect = cleanElement("select");
+export const CleanRatio = cleanElement(Ratio);
 
-CleanDiv.propTypes = {
-  ...sAttrs,
-  ...sProps
-};
-
-CleanButton.propTypes = {
-  ...sAttrs,
-  ...sProps
-};
-
-CleanImg.propTypes = {
-  ...sAttrs,
-  ...sProps
-};
-
-CleanSection.propTypes = {
-  ...sAttrs,
-  ...sProps
-};
-
-CleanRatio.propTypes = {
-  ...sAttrs,
-  ...sProps
-};
+CleanDiv.propTypes = mixinNames;
+CleanSpan.propTypes = mixinNames;
+CleanButton.propTypes = mixinNames;
+CleanA.propTypes = mixinNames;
+CleanImg.propTypes = mixinNames;
+CleanSection.propTypes = mixinNames;
+CleanArticle.propTypes = mixinNames;
+CleanIframe.propTypes = mixinNames;
+CleanInput.propTypes = mixinNames;
+CleanSelect.propTypes = mixinNames;
+CleanRatio.propTypes = mixinNames;

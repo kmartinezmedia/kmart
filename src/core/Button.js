@@ -8,14 +8,10 @@ const secondary = props =>
     color: props.theme.colors.accentDark
   };
 
-const circle = props =>
-  Object.keys(props).includes("circle") && { borderRadius: "50%" };
-
 export const Button = styled(CleanButton)`
   ${p => p.theme.setupComponent(p)};
   ${secondary};
   border-radius: 4px;
-  ${circle};
   transition: all ${p => p.theme.transitions.default};
   display: inline-block;
   position: relative;
@@ -53,28 +49,6 @@ Button.defaultProps = {
 };
 
 Button.displayName = "Button";
-
-const halfRadius = props =>
-  Object.keys(props).includes("halfRadius") && {
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0
-  };
-
-export const ConnectedButton = styled(Button)`
-  margin-left: -${p => p.theme.defaultRadius};
-  flex-shrink: 0;
-  white-space: nowrap;
-  ${halfRadius};
-`;
-
-ConnectedButton.displayName = "Connected Button";
-
-export const ConnectedButtonText = styled.span`
-  opacity: ${p => (p.hide ? 0 : 1)};
-  transition: opacity ${p => p.theme.transitions.default};
-`;
-
-ConnectedButtonText.displayName = "Connected Button Text";
 
 export const ButtonLink = Button.withComponent("a");
 export const ButtonInternalLink = Button.withComponent(Link).extend``;

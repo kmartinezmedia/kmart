@@ -14,7 +14,7 @@ export default {
   boxShadow,
   height: responsiveStyle({
     prop: "height",
-    key: "heights",
+    cssProperty: "height",
     numberToPx: true
   }),
   transition: responsiveStyle({
@@ -91,5 +91,9 @@ export default {
     prop: "bgPosition",
     cssProperty: "backgroundPosition"
   }),
-  zIndex: style({ prop: "zIndex", cssProperty: "zIndex" })
+  zIndex: style({ prop: "zIndex", cssProperty: "zIndex" }),
+  maxWidth: responsiveStyle({
+    prop: "maxWidth",
+    cssProperty: "maxWidth"
+  })
 };

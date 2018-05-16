@@ -1,4 +1,6 @@
+import { default as spaceProps } from "./spaceProps";
 import { shadows } from "./shadows";
+
 export default {
   fixed: {
     position: "fixed"
@@ -237,5 +239,13 @@ export default {
   },
   pointer: {
     cursor: "pointer"
-  }
+  },
+  circle: {
+    borderRadius: "50%"
+  },
+  halfRadius: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0
+  },
+  ...spaceProps
 };

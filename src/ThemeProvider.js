@@ -3,6 +3,7 @@ import styled, {
   ThemeProvider as StyledThemeProvider,
   injectGlobal
 } from "styled-components";
+import XRay from "react-x-ray";
 import { theme as defaultTheme } from "./theme";
 import { initThemeProvider } from "./initThemeProvider";
 
@@ -51,19 +52,33 @@ const injectGlobals = mergedTheme =>
 
 export default class ThemeProvider extends React.Component {
   state = {
-    theme: defaultTheme
+    theme: defaultTheme,
+    xrayOff: true
   };
 
   componentDidMount() {
+    process.env.NODE_ENV !== "production" &&
+      window.addEventListener("keydown", this.enableXRay);
     const mergedTheme = initThemeProvider(this.props);
     injectGlobals(mergedTheme);
     this.setState({ theme: mergedTheme });
+    console.log(mergedTheme);
   }
+
+  componentWillUnmount() {
+    process.env.NODE_ENV !== "production" &&
+      window.removeEventListener("keydown", this.enableXRay);
+  }
+
+  enableXRay = e =>
+    e.keyCode === 88 && this.setState({ xrayOff: !this.state.xrayOff });
 
   render() {
     return (
       <StyledThemeProvider theme={this.state.theme}>
-        {this.props.children}
+        <XRay grid={8} disabled={this.state.xrayOff}>
+          {this.props.children}
+        </XRay>
       </StyledThemeProvider>
     );
   }

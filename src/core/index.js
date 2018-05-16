@@ -1,6 +1,8 @@
+export * from "./AngledBox";
 export * from "./BackgroundImage";
 export * from "./Box";
 export * from "./Button";
+export * from "./ConnectedButton";
 export * from "./Container";
 export * from "./Flex";
 export * from "./Icon";
@@ -8,5 +10,7 @@ export * from "./Image";
 export * from "./Label";
 export * from "./Link";
 export * from "./OutlineButton";
+export * from "./RatioBox";
+export * from "./RatioImage";
 export * from "./Section";
 export * from "./Text";

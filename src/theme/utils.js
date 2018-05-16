@@ -43,17 +43,6 @@ const checkVariations = function(
   return styleObject;
 };
 
-export const applyProps = (props, arrayOfShorthands) => {
-  const shorthands = props.theme.shorthandProps;
-  const styleObject = Object.keys(shorthands)
-    .filter(keyName => arrayOfShorthands.includes(keyName))
-    .map(key => {
-      return shorthands[key];
-    })
-    .reduce((prev, next) => ({ ...prev, ...next }), {});
-  return styleObject;
-};
-
 export const setupComponent = function(props) {
   return {
     ...checkAttrs(props),

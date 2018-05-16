@@ -4,12 +4,51 @@ export const baseScale = 8;
 export const baseFontSize = baseScale * 2;
 export const baseLineHeight = baseFontSize * 1.5;
 
+// For sketch style guide
+export const fontVariations = [
+  {
+    name: "Europa",
+    familyProp: "europa",
+    weights: {
+      light: 300,
+      regular: 400,
+      bold: 700
+    }
+  },
+  {
+    name: "Expo Serif Pro",
+    familyProp: "expo",
+    weights: {
+      light: 300,
+      regular: 400,
+      semibold: 600,
+      bold: 700
+    }
+  },
+  {
+    name: "Poppins",
+    familyProp: "poppins",
+    weights: {
+      light: 300,
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+      extraBold: 800,
+      black: 900
+    }
+  }
+];
+
 const europa = "'europa', sans-serif";
 const expo = "'expo-serif-pro', serif";
+const poppins = "'Poppins', sans-serif";
 
 export const fonts = {
-  europa: europa,
-  expo: expo,
+  europa,
+  expo,
+  poppins,
+  default: europa,
   hero: europa,
   h1: europa,
   h2: europa,
