@@ -12,5 +12,6 @@ export * from "./Link";
 export * from "./OutlineButton";
 export * from "./RatioBox";
 export * from "./RatioImage";
+export * from "./RatioVideo";
 export * from "./Section";
 export * from "./Text";

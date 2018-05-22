@@ -4,6 +4,8 @@ const spacePx = [0, 8, 16, 24, 32, 64, 96, 128, 160, 192];
 const { startsWith, isNaN } = require("lodash");
 const numToWords = require("number-to-words");
 const capitalize = require("lodash/capitalize");
+const compress_images = require("compress-images");
+const shell = require("shelljs");
 
 const cleanUtils = `import React from "react";
 import Ratio from "react-ratio";
@@ -266,4 +268,41 @@ module.exports.generateExports = async ({
 module.exports.generateImports = ({ dir }) => {
   const files = getFileNames(dir);
   return `import {${files.join(", ")}} from "./${dir}"`;
+};
+
+module.exports.compressImages = ({ input, output, cb = () => {} }) => {
+  const inputDir = path.join(process.cwd(), input);
+  const outputDir = path.join(process.cwd(), output);
+  console.log(`starting ${input} compression`);
+  compress_images(
+    `${inputDir}/*.{jpg,JPG,jpeg,JPEG,png,svg}`,
+    `${outputDir}/`,
+    { compress_force: false, statistic: true, autoupdate: true },
+    false,
+    { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
+    { png: { engine: "pngquant", command: ["--quality=20-50"] } },
+    { svg: { engine: "svgo", command: "--multipass" } },
+    { gif: { engine: false, command: false } },
+    function() {
+      cb();
+    }
+  );
+};
+
+module.exports.convertGifs = ({ input, output }) => {
+  const inputDir = path.join(process.cwd(), input);
+  const outputDir = path.join(process.cwd(), output);
+  fs.readdirSync(inputDir).forEach(item => {
+    if (item.includes(".gif")) {
+      const prefixName = item.split(".")[0];
+      const inputFile = `${inputDir}/${item}`;
+      const outputPrefix = `${outputDir}/${prefixName}`;
+      const outputMp4 = `${outputPrefix}.mp4`;
+      const outputWebm = `${outputPrefix}.webm`;
+      shell.exec(`ffmpeg -n -i ${inputFile} -b:v 0 -crf 25 ${outputMp4}`);
+      shell.exec(
+        `ffmpeg -n -i ${inputFile} -c vp9 -b:v 0 -crf 41 ${outputWebm}`
+      );
+    }
+  });
 };
