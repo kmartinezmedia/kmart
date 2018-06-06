@@ -48,7 +48,6 @@ export const fonts = {
   europa,
   expo,
   poppins,
-  default: europa,
   hero: europa,
   h1: europa,
   h2: europa,

@@ -69,6 +69,15 @@ export default {
   right: responsiveStyle({ prop: "right", cssProperty: "right" }),
   bottom: responsiveStyle({ prop: "bottom", cssProperty: "bottom" }),
   left: responsiveStyle({ prop: "left", cssProperty: "left" }),
+  border: responsiveStyle({ prop: "border", cssProperty: "border" }),
+  borderBottom: responsiveStyle({
+    prop: "borderBottom",
+    cssProperty: "borderBottom"
+  }),
+  borderRadius: responsiveStyle({
+    prop: "borderRadius",
+    cssProperty: "borderRadius"
+  }),
   borderColor: style({
     prop: "borderColor",
     cssProperty: "borderColor",

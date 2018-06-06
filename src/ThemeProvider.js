@@ -62,7 +62,7 @@ export default class ThemeProvider extends React.Component {
     const mergedTheme = initThemeProvider(this.props);
     injectGlobals(mergedTheme);
     this.setState({ theme: mergedTheme });
-    console.log(mergedTheme);
+    // console.log(mergedTheme);
   }
 
   componentWillUnmount() {
