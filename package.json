@@ -4,6 +4,7 @@
   "description": "",
   "main": "lib",
   "files": ["lib/prepare.js"],
+  "homepage": "https://github.com/kmartinezmedia/kmart",
   "scripts": {
     "setup": "rimraf lib && node config/prepare.js",
     "prestart": "npm run setup",
