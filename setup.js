@@ -6,6 +6,7 @@ const numToWords = require("number-to-words");
 const capitalize = require("lodash/capitalize");
 const compress_images = require("compress-images");
 const shell = require("shelljs");
+const { View, Text } = require("react-primitives");
 
 const cleanUtils = `import React from "react";
 import Ratio from "react-ratio";
@@ -55,7 +56,8 @@ const domElements = [
   "article",
   "iframe",
   "input",
-  "select"
+  "select",
+  "label"
 ];
 
 const customComponents = ["Ratio"];

@@ -3,16 +3,25 @@
   "version": "1.0.3",
   "description": "",
   "main": "lib",
-  "files": ["lib/prepare.js"],
   "homepage": "https://github.com/kmartinezmedia/kmart",
+  "skpm": {
+    "main": "sketch/kmart.sketchplugin",
+    "manifest": "sketch/manifest.json",
+    "assets": ["sketch/assets/**/*"]
+  },
   "scripts": {
-    "setup": "rimraf lib && node config/prepare.js",
+    "setup": "node config/prepare.js",
     "prestart": "npm run setup",
-    "start": "concurrently \"babel src --watch -d lib\" \"npm run storybook\"",
-    "prebuild": "npm run setup",
+    "start":
+      "concurrently \"babel src --watch -d lib\" \"npm run storybook\" \"npm run sketch:render\"",
+    "prebuild": "rimraf lib && npm run setup",
     "build": "babel src -d lib",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook",
+    "sketch:build": "skpm-build",
+    "sketch:watch": "skpm-build --watch",
+    "sketch:render": "skpm-build --watch --run",
+    "sketch:render:once": "skpm-build --run"
   },
   "author": "Katherine Martinez",
   "contributors": [
@@ -28,15 +37,9 @@
     "clean-element": "^1.0.0",
     "clean-tag": "^1.0.4",
     "common-tags": "^1.5.1",
-    "copyfiles": "^2.0.0",
     "dom-helpers": "^3.2.1",
-    "fs": "0.0.1-security",
-    "fs-extra": "^5.0.0",
     "glamor": "^2.20.40",
     "lodash": "^4.17.4",
-    "ncp": "^2.0.0",
-    "number-to-words": "^1.2.3",
-    "path": "^0.12.7",
     "prop-types": "^15.6.1",
     "react": "^16.1.1",
     "react-animate-height": "^0.10.8",
@@ -46,12 +49,9 @@
     "react-router-dom": "^4.2.2",
     "react-swipeable-views-core": "^0.12.11",
     "react-x-ray": "^1.0.0-4",
-    "rimraf": "^2.6.2",
     "scrollmonitor": "^1.2.4",
-    "shelljs": "^0.8.1",
     "styled-components": "^2.4.0",
     "styled-system": "^2.2.5",
-    "system-components": "^2.0.3",
     "warning": "^3.0.0"
   },
   "devDependencies": {
@@ -66,6 +66,7 @@
     "@babel/preset-react": "^7.0.0-beta.47",
     "@babel/preset-stage-2": "^7.0.0-beta.47",
     "@babel/runtime": "^7.0.0-beta.47",
+    "@skpm/builder": "^0.5.7",
     "@storybook/addon-actions": "^3.4.4",
     "@storybook/addon-knobs": "^3.4.4",
     "@storybook/addon-links": "^3.4.4",
@@ -74,8 +75,19 @@
     "@storybook/react": "^3.4.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-lodash": "^3.3.2",
+    "chroma": "0.0.1",
     "compress-images": "^1.3.7",
     "concurrently": "^3.5.1",
+    "number-to-words": "^1.2.3",
+    "react-sketchapp": "^2.0.0",
+    "react-test-renderer": "^16.4.0",
+    "rimraf": "^2.6.2",
+    "shelljs": "^0.8.1",
     "storybook-addon-jsx": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=8.9.4",
+    "npm": ">=5.6.0",
+    "sketch": ">=3.0"
   }
 }

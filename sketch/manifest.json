@@ -1,0 +1,16 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "kmart",
+      "identifier": "main",
+      "script": "./index.js"
+    }
+  ],
+  "menu": {
+    "isRoot": true,
+    "items": ["main"]
+  }
+}

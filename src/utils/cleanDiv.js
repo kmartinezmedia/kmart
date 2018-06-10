@@ -46,6 +46,7 @@ export const CleanArticle = cleanElement("article");
 export const CleanIframe = cleanElement("iframe");
 export const CleanInput = cleanElement("input");
 export const CleanSelect = cleanElement("select");
+export const CleanLabel = cleanElement("label");
 export const CleanRatio = cleanElement(Ratio);
 
 CleanDiv.propTypes = mixinNames;
@@ -58,4 +59,5 @@ CleanArticle.propTypes = mixinNames;
 CleanIframe.propTypes = mixinNames;
 CleanInput.propTypes = mixinNames;
 CleanSelect.propTypes = mixinNames;
+CleanLabel.propTypes = mixinNames;
 CleanRatio.propTypes = mixinNames;
