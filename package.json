@@ -1,21 +1,20 @@
 {
   "name": "kmart",
-  "version": "1.1.1",
+  "version": "1.0.3",
   "description": "",
   "main": "lib",
   "homepage": "https://github.com/kmartinezmedia/kmart",
   "skpm": {
     "main": "sketch/kmart.sketchplugin",
     "manifest": "sketch/manifest.json",
-    "assets": [
-      "sketch/assets/**/*"
-    ]
+    "assets": ["sketch/assets/**/*"]
   },
   "scripts": {
     "setup": "node config/prepare.js",
     "prestart": "npm run setup",
     "start": "babel src --watch -d lib",
-    "start:all": "concurrently \"babel src --watch -d lib\" \"npm run storybook\" \"npm run sketch:render\"",
+    "start:all":
+      "concurrently \"babel src --watch -d lib\" \"npm run storybook\" \"npm run sketch:render\"",
     "prebuild": "rimraf lib && npm run setup",
     "build": "babel src -d lib",
     "storybook": "start-storybook -p 6006",
