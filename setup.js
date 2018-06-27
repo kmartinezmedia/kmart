@@ -7,7 +7,7 @@ const numToWords = require("number-to-words");
 const capitalize = require("lodash/capitalize");
 const compress_images = require("compress-images");
 const shell = require("shelljs");
-const { View, Text } = require("react-primitives");
+const prettier = require("prettier");
 
 const cleanUtils = `import React from "react";
 import Ratio from "react-ratio";
@@ -78,13 +78,15 @@ const cleanPropTypes = [...domElements, ...customComponents]
 module.exports.generateCleanElements = () =>
   fs.writeFileSync(
     "src/utils/cleanDiv.js",
-    cleanUtils +
-      "\n\n" +
-      cleanElements +
-      "\n" +
-      cleanComponents +
-      "\n\n" +
-      cleanPropTypes
+    prettier.format(
+      cleanUtils +
+        "\n\n" +
+        cleanElements +
+        "\n" +
+        cleanComponents +
+        "\n\n" +
+        cleanPropTypes
+    )
   );
 
 const spaceProps = [
@@ -161,7 +163,7 @@ const shorthandProps =
 module.exports.generateShorthandSpaceProps = () =>
   fs.writeFileSync(
     "src/theme/spaceProps.js",
-    "import { rems } from './utils';\n\n" + shorthandProps
+    prettier.format("import { rems } from './utils';\n\n" + shorthandProps)
   );
 
 const shorthandPropsNative =
@@ -192,8 +194,10 @@ const shorthandPropsNative =
 module.exports.generateShorthandSpacePropsNative = () =>
   fs.writeFileSync(
     "src/theme/space.js",
-    "import { Platform, PixelRatio } from 'react-native';\n\n" +
-      shorthandPropsNative
+    prettier.format(
+      "import { Platform, PixelRatio } from 'react-native';\n\n" +
+        shorthandPropsNative
+    )
   );
 
 const getFileNames = ({ dir, showExtension }) => {
@@ -280,7 +284,10 @@ async function getContents({
     wildcard,
     requires
   });
-  return await fs.writeFileSync(path.join(dir, "index.js"), fileContents);
+  return await fs.writeFileSync(
+    path.join(dir, "index.js"),
+    prettier.format(fileContents)
+  );
 }
 
 module.exports.generateExports = async ({
