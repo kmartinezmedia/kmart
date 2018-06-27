@@ -1,6 +1,8 @@
-import { baseFontSize } from "./typography";
 import { capitalize } from "../utils/strings";
 
+export const baseScale = 8;
+export const baseFontSize = baseScale * 2;
+export const baseLineHeight = baseFontSize * 1.5;
 export const rems = px => `${px / baseFontSize}rem`;
 
 export const themeToProps = function(
@@ -22,12 +24,10 @@ export const themeToProps = function(
   return styles;
 };
 
-const checkAttrs = function({
-  theme: { shorthandAttributes = {} },
-  ...propsToCompare
-}) {
+const checkAttrs = function(props) {
+  const { shorthandAttributes = {} } = props.theme;
   return Object.values(shorthandAttributes)
-    .map(style => style(propsToCompare))
+    .map(style => style(props))
     .reduce((prev, next) => ({ ...prev, ...next }), {});
 };
 

@@ -1,6 +1,8 @@
 import merge from "lodash/merge";
 import { default as defaultShorthandProps } from "./theme/shorthandProps";
 import { default as defaultShorthandAttributes } from "./theme/shorthandAttributes";
+import { fonts, fontSizes, fontWeights, lineHeights } from "./theme/typography";
+import { space, spaceNative } from "./theme/space";
 import { theme } from "./theme";
 import { themeToProps } from "./theme/utils";
 import { delay } from "./utils";
@@ -82,10 +84,10 @@ export const initThemeProvider = function(props, cb) {
 
   const mergedTheme = merge({}, theme, restOfTheme);
   const miscShorthandProps = {
-    ...themeToProps(mergedTheme.fonts, "fontFamily"),
-    ...themeToProps(mergedTheme.fontSizes, "fontSize"),
-    ...themeToProps(mergedTheme.fontWeights, "fontWeight"),
-    ...themeToProps(mergedTheme.lineHeights, "lineHeight", true, "lh"),
+    ...themeToProps(fonts, "fontFamily"),
+    ...themeToProps(fontSizes, "fontSize"),
+    ...themeToProps(fontWeights, "fontWeight"),
+    ...themeToProps(lineHeights, "lineHeight", true, "lh"),
     ...themeToProps(mergedTheme.colors, "backgroundColor", true, "bg"),
     ...themeToProps(mergedTheme.colors, "color", true, "c"),
     ...themeToProps(mergedTheme.colors, "borderColor", true, "bc")
@@ -93,6 +95,11 @@ export const initThemeProvider = function(props, cb) {
 
   return merge({}, mergedTheme, {
     html: html(mergedTheme),
+    fonts,
+    fontSizes,
+    fontWeights,
+    lineHeights,
+    space: native ? spaceNative : space,
     shorthandProps: {
       ...defaultShorthandProps,
       ...miscShorthandProps,

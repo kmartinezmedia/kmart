@@ -6,6 +6,7 @@ import styled, {
 import XRay from "react-x-ray";
 import { theme as defaultTheme } from "./theme";
 import { initThemeProvider } from "./initThemeProvider";
+import { baseFontSize, baseLineHeight } from "./theme/utils";
 
 const debug = props => {
   console.log(props);
@@ -21,8 +22,8 @@ const injectGlobals = mergedTheme =>
 
   html {
     font-family: ${mergedTheme.fonts.default};
-    font-size: ${mergedTheme.fontSizesPx.p}px;
-    line-height: ${mergedTheme.baseLineHeight / mergedTheme.baseFontSize};
+    font-size: ${baseFontSize}px;
+    line-height: ${baseLineHeight / baseFontSize};
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -ms-text-size-adjust: 100%;
@@ -30,10 +31,10 @@ const injectGlobals = mergedTheme =>
     text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     ${mergedTheme.responsive.md`
-      font-size: ${mergedTheme.fontSizesPx.p - 1}px;
+      font-size: ${baseFontSize - 1}px;
     `};
     ${mergedTheme.responsive.sm`
-      font-size: ${mergedTheme.fontSizesPx.p - 1}px;
+      font-size: ${baseFontSize - 1}px;
     `};
   }
 

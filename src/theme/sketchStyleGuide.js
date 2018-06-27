@@ -1,6 +1,42 @@
-import { fontSizesPx, lineHeightsPx, fontVariations } from "./typography";
+import { fontSizesPx, lineHeightsPx } from "./typography";
 import { capitalize } from "../utils";
 import omit from "lodash/omit";
+
+// For sketch style guide
+export const fontVariations = [
+  {
+    name: "Europa",
+    familyProp: "europa",
+    weights: {
+      light: 300,
+      regular: 400,
+      bold: 700
+    }
+  },
+  {
+    name: "Expo Serif Pro",
+    familyProp: "expo",
+    weights: {
+      light: 300,
+      regular: 400,
+      semibold: 600,
+      bold: 700
+    }
+  },
+  {
+    name: "Poppins",
+    familyProp: "poppins",
+    weights: {
+      light: 300,
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+      extraBold: 800,
+      black: 900
+    }
+  }
+];
 
 const flatten = arr => {
   while (arr.find(el => Array.isArray(el)))
