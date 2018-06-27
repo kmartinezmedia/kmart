@@ -9,7 +9,7 @@ const flatten = arr => {
 };
 
 // create object with all font styles in every size for style guide
-export const sketchFontStyles = flatten(
+export default flatten(
   Object.keys(fontSizesPx).map(size => {
     return fontVariations.map(font => {
       return Object.keys(font.weights).map(weight => {

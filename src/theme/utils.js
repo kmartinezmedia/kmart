@@ -22,22 +22,25 @@ export const themeToProps = function(
   return styles;
 };
 
-const checkAttrs = function(props) {
-  return Object.values(props.theme.shorthandAttributes)
-    .map(style => style(props))
+const checkAttrs = function({
+  theme: { shorthandAttributes = {} },
+  ...propsToCompare
+}) {
+  return Object.values(shorthandAttributes)
+    .map(style => style(propsToCompare))
     .reduce((prev, next) => ({ ...prev, ...next }), {});
 };
 
-const checkVariations = function(
-  props,
-  propsToCompare = props.theme.shorthandProps
-) {
+const checkVariations = function({
+  theme: { shorthandProps = {} },
+  ...propsToCompare
+}) {
   // check to see if boolean props are present on component
   // then create style object with all those props merged together
-  const styleObject = Object.keys(propsToCompare)
-    .filter(key => Object.keys(props).includes(key))
+  const styleObject = Object.keys(shorthandProps)
+    .filter(key => Object.keys(propsToCompare).includes(key))
     .map(key => {
-      return propsToCompare[key];
+      return shorthandProps[key];
     })
     .reduce((prev, next) => ({ ...prev, ...next }), {});
   return styleObject;

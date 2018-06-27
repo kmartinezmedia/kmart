@@ -1,4 +1,6 @@
 import merge from "lodash/merge";
+import { default as defaultShorthandProps } from "./theme/shorthandProps";
+import { default as defaultShorthandAttributes } from "./theme/shorthandAttributes";
 import { theme } from "./theme";
 import { themeToProps } from "./theme/utils";
 import { delay } from "./utils";
@@ -69,11 +71,17 @@ export const initThemeProvider = function(props, cb) {
     };
   }
 
-  const mergedTheme = merge({}, theme, props.theme);
-  const html = mergedTheme.hasOwnProperty("html")
-    ? mergedTheme.html(mergedTheme)
-    : () => {};
-  const shorthandProps = {
+  const {
+    html = () => {},
+    shorthandProps = () => {},
+    shorthandAttributes = {},
+    ...restOfTheme
+  } = props.theme;
+
+  const { native = false } = props;
+
+  const mergedTheme = merge({}, theme, restOfTheme);
+  const miscShorthandProps = {
     ...themeToProps(mergedTheme.fonts, "fontFamily"),
     ...themeToProps(mergedTheme.fontSizes, "fontSize"),
     ...themeToProps(mergedTheme.fontWeights, "fontWeight"),
@@ -83,5 +91,16 @@ export const initThemeProvider = function(props, cb) {
     ...themeToProps(mergedTheme.colors, "borderColor", true, "bc")
   };
 
-  return merge({}, mergedTheme, { html, shorthandProps: shorthandProps });
+  return merge({}, mergedTheme, {
+    html: html(mergedTheme),
+    shorthandProps: {
+      ...defaultShorthandProps,
+      ...miscShorthandProps,
+      ...shorthandProps(mergedTheme)
+    },
+    shorthandAttributes: {
+      ...defaultShorthandAttributes,
+      ...shorthandAttributes
+    }
+  });
 };

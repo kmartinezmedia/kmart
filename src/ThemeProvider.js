@@ -56,13 +56,13 @@ export default class ThemeProvider extends React.Component {
     xrayOff: true
   };
 
-  componentDidMount() {
+  componentWillMount() {
     process.env.NODE_ENV !== "production" &&
       window.addEventListener("keydown", this.enableXRay);
     const mergedTheme = initThemeProvider(this.props);
     injectGlobals(mergedTheme);
     this.setState({ theme: mergedTheme });
-    // console.log(mergedTheme);
+    console.log(mergedTheme);
   }
 
   componentWillUnmount() {

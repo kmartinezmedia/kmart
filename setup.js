@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const spacePx = [0, 8, 16, 24, 32, 64, 96, 128, 160, 192];
+const spaceNative = [4, 8, 12, 16, 24, 32, 40, 48];
 const { startsWith, isNaN } = require("lodash");
 const numToWords = require("number-to-words");
 const capitalize = require("lodash/capitalize");
@@ -163,6 +164,38 @@ module.exports.generateShorthandSpaceProps = () =>
     "import { rems } from './utils';\n\n" + shorthandProps
   );
 
+const shorthandPropsNative =
+  "export default {\n" +
+  spaceProps
+    .map(prop =>
+      spaceNative.map((num, i) => {
+        let name;
+        if (prop.length === 1) {
+          name = properties[prop];
+          return `"${prop}${num}": {
+            ${name}Horizontal: PixelRatio.roundToNearestPixel(${num}),
+            ${name}Vertical: PixelRatio.roundToNearestPixel(${num})
+          }`;
+        } else {
+          name = `${properties[prop.split("")[0]]}${
+            directions[prop.split("")[1]]
+          }`;
+          return `"${prop}${num}": {
+          ${name}: PixelRatio.roundToNearestPixel(${num})
+        }`;
+        }
+      })
+    )
+    .join(",\n") +
+  "}";
+
+module.exports.generateShorthandSpacePropsNative = () =>
+  fs.writeFileSync(
+    "src/theme/space.js",
+    "import { Platform, PixelRatio } from 'react-native';\n\n" +
+      shorthandPropsNative
+  );
+
 const getFileNames = ({ dir, showExtension }) => {
   const files = fs
     .readdirSync(dir)
@@ -189,15 +222,16 @@ const generateExportNames = async ({
     .filter(file => !startsWith(file, "."))
     .filter(file => !file.includes("index"))
     .filter(file => file !== "");
-  const firstLine = requires ? `module.exports = {` : "";
-  const lastLine = +requires ? "}" : "";
+  const firstLine = requires ? `module.exports = {\n` : "";
+  const lastLine = +requires ? "\n}" : "";
   return (
     firstLine +
     filteredFiles
-      .map(x => {
+      .map((x, i) => {
         let name = x.split(".")[0];
         let extension = x.split(".")[1];
         let filename;
+        const isLast = filteredFiles.length - 1 === i;
         if (extension !== undefined) {
           filename = extension === "js" ? name : x;
         } else {
@@ -211,7 +245,7 @@ const generateExportNames = async ({
         } else if (wildcard) {
           return `export * from "./${filename}";`;
         } else if (requires) {
-          return `${name}: require("./${filename}"),`;
+          return `"${name}": require("./${filename}")${!isLast ? "," : ""}`;
         }
       })
       .join("\n") +
@@ -253,7 +287,6 @@ module.exports.generateExports = async ({
   dir,
   defaults = false,
   wildcard = false,
-  write = true,
   showExtension = false,
   requires = false
 }) => {
