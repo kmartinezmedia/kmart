@@ -6,7 +6,7 @@
     {
       "name": "kmart",
       "identifier": "main",
-      "script": "./index.js"
+      "script": "./src/index.js"
     }
   ],
   "menu": {

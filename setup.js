@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const spacePx = [0, 8, 16, 24, 32, 64, 96, 128, 160, 192];
-const spaceNative = [4, 8, 12, 16, 24, 32, 40, 48];
+const { spaceBrowser, spaceNative } = require("./constants.js");
 const { startsWith, isNaN } = require("lodash");
 const numToWords = require("number-to-words");
 const capitalize = require("lodash/capitalize");
@@ -77,7 +76,7 @@ const cleanPropTypes = [...domElements, ...customComponents]
 
 module.exports.generateCleanElements = () =>
   fs.writeFileSync(
-    "src/utils/cleanDiv.js",
+    "src/browser/utils/cleanDiv.js",
     prettier.format(
       cleanUtils +
         "\n\n" +
@@ -124,7 +123,7 @@ const shorthandProps =
   "export default {\n" +
   spaceProps
     .map(prop =>
-      spacePx.map((num, i) => {
+      spaceBrowser.map((num, i) => {
         let name;
         if (prop.length === 1) {
           name = properties[prop];
@@ -162,42 +161,8 @@ const shorthandProps =
 
 module.exports.generateShorthandSpaceProps = () =>
   fs.writeFileSync(
-    "src/theme/spaceProps.js",
+    "src/browser/theme/spaceProps.js",
     prettier.format("import { rems } from './utils';\n\n" + shorthandProps)
-  );
-
-const shorthandPropsNative =
-  "export default {\n" +
-  spaceProps
-    .map(prop =>
-      spaceNative.map((num, i) => {
-        let name;
-        if (prop.length === 1) {
-          name = properties[prop];
-          return `"${prop}${num}": {
-            ${name}Horizontal: PixelRatio.roundToNearestPixel(${num}),
-            ${name}Vertical: PixelRatio.roundToNearestPixel(${num})
-          }`;
-        } else {
-          name = `${properties[prop.split("")[0]]}${
-            directions[prop.split("")[1]]
-          }`;
-          return `"${prop}${num}": {
-          ${name}: PixelRatio.roundToNearestPixel(${num})
-        }`;
-        }
-      })
-    )
-    .join(",\n") +
-  "}";
-
-module.exports.generateShorthandSpacePropsNative = () =>
-  fs.writeFileSync(
-    "src/theme/space.js",
-    prettier.format(
-      "import { Platform, PixelRatio } from 'react-native';\n\n" +
-        shorthandPropsNative
-    )
   );
 
 const getFileNames = ({ dir, showExtension }) => {
@@ -348,3 +313,39 @@ module.exports.convertGifs = ({ input, output }) => {
     }
   });
 };
+
+// NATIVE UTILS
+//
+const shorthandPropsNative =
+  "export default {\n" +
+  spaceProps
+    .map(prop =>
+      spaceNative.map((num, i) => {
+        let name;
+        if (prop.length === 1) {
+          name = properties[prop];
+          return `"${prop}${num}": {
+            ${name}Horizontal: PixelRatio.roundToNearestPixel(${num}),
+            ${name}Vertical: PixelRatio.roundToNearestPixel(${num})
+          }`;
+        } else {
+          name = `${properties[prop.split("")[0]]}${
+            directions[prop.split("")[1]]
+          }`;
+          return `"${prop}${num}": {
+          ${name}: PixelRatio.roundToNearestPixel(${num})
+        }`;
+        }
+      })
+    )
+    .join(",\n") +
+  "}";
+
+module.exports.generateShorthandSpacePropsNative = () =>
+  fs.writeFileSync(
+    "src/native/theme/spaceProps.js",
+    prettier.format(
+      "import { Platform, PixelRatio } from 'react-native';\n\n" +
+        shorthandPropsNative
+    )
+  );

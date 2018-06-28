@@ -1,7 +1,6 @@
-.npm
-npm-debug.log
-node_modules
-.DS_Store
-src/.DS_Store
+.npm*
+npm-debug.log*
+node_modules*
+.DS_Store*
 lib
 sketch/kmart.sketchplugin
