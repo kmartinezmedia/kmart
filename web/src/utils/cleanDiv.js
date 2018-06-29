@@ -1,5 +1,6 @@
 import React from "react";
 import Ratio from "react-ratio";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import shorthandProps from "../theme/shorthandProps";
 import shorthandAttributes from "../theme/shorthandAttributes";
@@ -48,6 +49,7 @@ export const CleanInput = cleanElement("input");
 export const CleanSelect = cleanElement("select");
 export const CleanLabel = cleanElement("label");
 export const CleanRatio = cleanElement(Ratio);
+export const CleanLink = cleanElement(Link);
 
 CleanDiv.propTypes = mixinNames;
 CleanSpan.propTypes = mixinNames;
@@ -61,3 +63,4 @@ CleanInput.propTypes = mixinNames;
 CleanSelect.propTypes = mixinNames;
 CleanLabel.propTypes = mixinNames;
 CleanRatio.propTypes = mixinNames;
+CleanLink.propTypes = mixinNames;

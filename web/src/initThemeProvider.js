@@ -88,6 +88,7 @@ export const initThemeProvider = function(props, cb) {
   const {
     shorthandProps = () => {},
     shorthandAttributes = {},
+    html = () => {},
     ...restOfTheme
   } = props.theme;
 
@@ -107,6 +108,7 @@ export const initThemeProvider = function(props, cb) {
       ...miscShorthandProps,
       ...shorthandProps(mergedTheme)
     },
-    shorthandAttributes
+    shorthandAttributes,
+    html: html(mergedTheme)
   });
 };

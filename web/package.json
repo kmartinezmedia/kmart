@@ -6,7 +6,7 @@
   "homepage": "https://github.com/kmartinezmedia/kmart",
   "scripts": {
     "setup": "node init.js",
-    "prepare": "npm run clean && npm run build",
+    "prepare": "npm link @kmart/utils && npm run clean && npm run build",
     "clean": "rimraf lib",
     "prestart": "npm run setup",
     "start": "webpack --progress --colors",

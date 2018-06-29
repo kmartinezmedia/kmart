@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { CleanLabel } from "../utils";
 
-export const Label = styled.label`
+export const Label = styled(CleanLabel)`
   ${p => p.theme.setupComponent(p)};
   z-index: 1;
   position: absolute;

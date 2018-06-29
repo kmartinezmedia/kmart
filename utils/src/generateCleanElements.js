@@ -5,6 +5,7 @@ import prettier from "prettier";
 
 const cleanUtils = `import React from "react";
 import Ratio from "react-ratio";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import shorthandProps from "../theme/shorthandProps";
 import shorthandAttributes from "../theme/shorthandAttributes";
@@ -55,7 +56,7 @@ const domElements = [
   "label"
 ];
 
-const customComponents = ["Ratio"];
+const customComponents = ["Ratio", "Link"];
 
 const cleanElements = domElements
   .map(el => `export const Clean${capitalize(el)} = cleanElement("${el}");`)

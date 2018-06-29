@@ -48,6 +48,7 @@ const injectGlobals = mergedTheme =>
       padding-left: ${mergedTheme.rems(24)};
     }
   }
+  ${mergedTheme.html}
 `;
 
 export default class ThemeProvider extends React.Component {

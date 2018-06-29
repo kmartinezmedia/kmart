@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { CleanLink } from "../utils";
 import { Button } from "./Button";
 
 export const OutlineButton = Button.extend`
@@ -9,7 +9,8 @@ export const OutlineButton = Button.extend`
   border-color: currentcolor;
 `;
 
-export const OutlineButtonLink = OutlineButton.withComponent(Link).extend``;
+export const OutlineButtonLink = OutlineButton.withComponent(CleanLink)
+  .extend``;
 
 OutlineButton.defaultProps = {
   color: "primary",

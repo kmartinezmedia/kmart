@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { CleanLink, CleanA } from "../utils";
 import { Text } from "./Text";
 
-export const Link = Text.withComponent("a").extend`
+export const Link = Text.withComponent(CleanA).extend`
   ${p => p.theme.setupComponent(p)};
   text-decoration: none;
   cursor: pointer;
 `;
 
-export const UnstyledLink = styled.a`
+export const UnstyledLink = styled(CleanA)`
   text-decoration: none;
 `;
 
-export const UnstyledRouterLink = styled(ReactRouterLink)`
+export const UnstyledRouterLink = styled(CleanLink)`
   text-decoration: none;
 `;
 
