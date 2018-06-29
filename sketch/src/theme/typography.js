@@ -1,4 +1,4 @@
-import { theme } from "kmart";
+import { theme } from "@kmart/web";
 import capitalize from "lodash/capitalize";
 import omit from "lodash/omit";
 
