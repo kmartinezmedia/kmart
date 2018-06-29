@@ -2,6 +2,28 @@ import { default as spaceProps } from "./spaceProps";
 import { shadows } from "./shadows";
 
 export default {
+  ...spaceProps,
+  shadow1: {
+    ...shadows[0]
+  },
+  shadow2: {
+    ...shadows[1]
+  },
+  shadow3: {
+    ...shadows[2]
+  },
+  shadow4: {
+    ...shadows[3]
+  },
+  shadow5: {
+    ...shadows[4]
+  },
+  shadow6: {
+    ...shadows[5]
+  },
+  shadow7: {
+    ...shadows[6]
+  },
   fixed: {
     position: "fixed"
   },
@@ -225,27 +247,5 @@ export default {
   halfRadius: {
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0
-  },
-  ...spaceProps,
-  shadow1: {
-    ...shadows[0]
-  },
-  shadow2: {
-    ...shadows[1]
-  },
-  shadow3: {
-    ...shadows[2]
-  },
-  shadow4: {
-    ...shadows[3]
-  },
-  shadow5: {
-    ...shadows[4]
-  },
-  shadow6: {
-    ...shadows[5]
-  },
-  shadow7: {
-    ...shadows[6]
   }
 };

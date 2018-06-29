@@ -11,7 +11,7 @@
     "prestart": "npm run setup",
     "start": "webpack --progress --colors",
     "prebuild": "npm run setup",
-    "build": "NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack --progress --colors",
     "upload": "npm publish --access=public"
   },
   "author": "Katherine Martinez",
@@ -43,7 +43,7 @@
     "warning": "^3.0.0"
   },
   "devDependencies": {
-    "@kmart/utils": "^1.0.3",
+    "@kmart/utils": "^1.0.4",
     "@babel/cli": "^7.0.0-beta.51",
     "@babel/core": "^7.0.0-beta.51",
     "@babel/plugin-proposal-class-properties": "^7.0.0-beta.51",

@@ -2,7 +2,8 @@ import * as typography from "./typography";
 import { colors } from "./colors";
 import { space } from "./space";
 import { breakpoints, devices, responsive } from "./responsive";
-import { rems, setupComponent } from "./utils";
+import { rems } from "./utils";
+import { setupComponent } from "@kmart/utils/lib/setupComponent";
 import shorthandProps from "./shorthandProps";
 import shorthandAttributes from "./shorthandAttributes";
 

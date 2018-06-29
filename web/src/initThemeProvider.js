@@ -1,6 +1,6 @@
 import merge from "lodash/merge";
 import { theme } from "./theme";
-import { themeToProps } from "./theme/utils";
+import { themeToProps } from "@kmart/utils/lib/themeToProps";
 import { delay } from "./utils";
 
 export const initThemeProvider = function(props, cb) {

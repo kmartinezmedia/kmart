@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import prettier from "prettier";
+import { spacePx } from "./space";
 
 const spaceProps = [
   "m",
@@ -73,10 +74,7 @@ const shorthandProps = spaceArray =>
     .join(",\n") +
   "}";
 
-export const generateShorthandSpaceProps = ({
-  dest,
-  spaceArray = [0, 8, 16, 24, 32, 64, 96, 128, 160, 192]
-}) =>
+export const generateShorthandSpaceProps = ({ dest, spaceArray = spacePx }) =>
   fs.writeFileSync(
     path.join(process.cwd(), dest),
     prettier.format(

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import prettier from "prettier";
+import { spaceNative } from "./space";
 
 const spaceProps = [
   "m",
@@ -60,12 +61,12 @@ const shorthandProps = spaceArray =>
 
 export const generateShorthandSpacePropsNative = ({
   dest,
-  spaceArray = [4, 8, 12, 16, 24, 32, 40, 48]
+  spaceArray = spaceNative
 }) =>
   fs.writeFileSync(
     path.join(process.cwd(), dest),
     prettier.format(
-      "import { Platform, PixelRatio } from 'react-native';\n\n" +
+      "import { PixelRatio } from 'react-native';\n\n" +
         shorthandProps(spaceArray)
     )
   );
