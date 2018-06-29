@@ -20,9 +20,7 @@
     "react": "^16.4.1",
     "react-native": "^0.55.4",
     "styled-components": "^3.3.3",
-    "styled-system": "^2.3.2"
-  },
-  "devDependencies": {
+    "styled-system": "^2.3.2",
     "@kmart/utils": "^1.0.4"
   },
   "engines": {
