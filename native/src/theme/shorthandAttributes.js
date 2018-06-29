@@ -1,6 +1,6 @@
-import { space, color, width, style } from "styled-system";
+import { space, color, width, style } from "./styled-system";
 
-export default {
+export const shorthandAttributes = {
   space,
   color,
   width,

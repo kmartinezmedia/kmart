@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import { default as spaceProps } from "./spaceProps";
 
-export const baseProps = {
+export const shorthandProps = {
   ...spaceProps,
   hide: {
     opacity: 0
