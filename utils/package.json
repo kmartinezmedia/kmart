@@ -1,13 +1,10 @@
 {
   "name": "@kmart/utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "homepage": "https://github.com/kmartinezmedia/kmart",
   "author": "Katherine Martinez",
   "private": false,
-  "browser": {
-    "child_process": false
-  },
   "contributors": [
     {
       "name": "Katherine Martinez",
