@@ -27,7 +27,7 @@
     "postinstall": "npm run build && skpm-link"
   },
   "devDependencies": {
-    "@kmart/utils": "^1.0.0",
+    "@kmart/utils": "^1.0.3",
     "@skpm/builder": "^0.4.3"
   },
   "dependencies": {

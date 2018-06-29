@@ -1,6 +1,6 @@
 {
   "name": "@kmart/utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "homepage": "https://github.com/kmartinezmedia/kmart",
   "author": "Katherine Martinez",
@@ -13,9 +13,7 @@
   ],
   "license": "ISC",
   "main": "lib",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "scripts": {
     "prepare": "npm run clean && npm run build",
     "clean": "rimraf lib",
