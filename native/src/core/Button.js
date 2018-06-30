@@ -1,7 +1,7 @@
-import { Button } from "react-native";
+import { Button as RNButton } from "react-native";
 import styled from "styled-components/native";
 
-export default styled(Button).attrs({
+export const Button = styled(RNButton).attrs({
   color: p => p.theme.colors[p.color]
 })`
   ${p => p.theme.setupComponent(p)};

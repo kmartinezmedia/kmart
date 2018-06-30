@@ -1,11 +1,6 @@
 import styled from "styled-components/native";
-import { FlatList, Animated } from "react-native";
-const AFL = Animated.createAnimatedComponent(FlatList);
+import { FlatList as RNFlatList } from "react-native";
 
-export default styled(FlatList)`
-  ${p => p.theme.setupComponent(p)};
-`;
-
-export const AnimatedFlatList = styled(AFL)`
+export const FlatList = styled(RNFlatList)`
   ${p => p.theme.setupComponent(p)};
 `;

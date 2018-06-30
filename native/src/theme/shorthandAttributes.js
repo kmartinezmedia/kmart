@@ -1,4 +1,4 @@
-import { space, color, width, style } from "./styled-system";
+import { space, color, width, style } from "../styled-system";
 
 export const shorthandAttributes = {
   space,
@@ -10,11 +10,13 @@ export const shorthandAttributes = {
   }),
   fontSize: style({
     prop: "fontSize",
-    cssProperty: "fontSize"
+    cssProperty: "fontSize",
+    key: "fontSizes"
   }),
   lineHeight: style({
     prop: "lineHeight",
-    cssProperty: "lineHeight"
+    cssProperty: "lineHeight",
+    key: "lineHeights"
   }),
   letterSpacing: style({
     prop: "letterSpacing",

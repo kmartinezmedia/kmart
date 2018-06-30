@@ -3,13 +3,7 @@ import { theme } from "./theme";
 import { themeToProps } from "@kmart/utils/lib/themeToProps";
 
 export const initThemeProvider = function(props, cb) {
-  const {
-    shorthandProps = () => {},
-    shorthandAttributes = {},
-    ...restOfTheme
-  } = props.theme;
-
-  const mergedTheme = merge({}, theme, restOfTheme);
+  const mergedTheme = merge({}, theme, props.theme);
 
   const textShorthandsProps = Object.keys(mergedTheme.fontSizes).reduce(
     (prev, next) => {
@@ -33,9 +27,7 @@ export const initThemeProvider = function(props, cb) {
   return merge({}, mergedTheme, {
     shorthandProps: {
       ...miscShorthandProps,
-      ...shorthandProps(mergedTheme),
       ...textShorthandsProps
-    },
-    shorthandAttributes
+    }
   });
 };

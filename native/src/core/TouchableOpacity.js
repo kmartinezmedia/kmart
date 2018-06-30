@@ -1,11 +1,11 @@
-import { TouchableOpacity, Animated } from "react-native";
+import { TouchableOpacity as RNTouchableOpacity, Animated } from "react-native";
 import styled from "styled-components/native";
 
-export default styled.TouchableOpacity`
+export const TouchableOpacity = styled(RNTouchableOpacity)`
   ${p => p.theme.setupComponent(p)};
 `;
 
-const ATO = Animated.createAnimatedComponent(TouchableOpacity);
+const ATO = Animated.createAnimatedComponent(RNTouchableOpacity);
 
 export const AnimatedTouchableOpacity = styled(ATO)`
   ${p => p.theme.setupComponent(p)};

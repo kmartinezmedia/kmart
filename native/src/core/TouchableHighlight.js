@@ -1,6 +1,6 @@
-import { TouchableHighlight } from "react-native";
+import { TouchableHighlight as RNTouchableHighlight } from "react-native";
 import styled from "styled-components/native";
 
-export default styled.TouchableHighlight`
+export const TouchableHighlight = styled(RNTouchableHighlight)`
   ${p => p.theme.setupComponent(p)};
 `;

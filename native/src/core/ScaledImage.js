@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
-export default class ScaledImage extends Component {
+export class ScaledImage extends Component {
   constructor(props) {
     super(props);
   }
