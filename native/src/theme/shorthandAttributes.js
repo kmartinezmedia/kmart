@@ -56,7 +56,7 @@ export const shorthandAttributes = {
     key: "colors"
   }),
   borderWidth: style({
-    prop: "bw",
+    prop: "borderWidth",
     cssProperty: "borderWidth"
   }),
   opacity: style({
@@ -68,6 +68,10 @@ export const shorthandAttributes = {
     cssProperty: "flexGrow"
   }),
   textAlign: style({ prop: "textAlign", cssProperty: "textAlign" }),
-  zIndex: style({ prop: "z", cssProperty: "zIndex" }),
-  transform: style({ prop: "transform", cssProperty: "transform" })
+  zIndex: style({ prop: "zIndex", cssProperty: "zIndex" }),
+  transform: style({ prop: "transform", cssProperty: "transform" }),
+  position: style({
+    prop: "position",
+    cssProperty: "position"
+  })
 };
