@@ -2,7 +2,7 @@ import merge from "lodash/merge";
 import { theme } from "./theme";
 import { themeToProps } from "@kmart/utils/lib/themeToProps";
 
-export const initThemeProvider = function(props, cb) {
+export const initThemeProvider = function(props) {
   const mergedTheme = merge({}, theme, props.theme);
 
   const textShorthandsProps = Object.keys(mergedTheme.fontSizes).reduce(
@@ -18,6 +18,8 @@ export const initThemeProvider = function(props, cb) {
     {}
   );
 
+  const { shorthandProps = () => {} } = props.theme;
+
   const miscShorthandProps = {
     ...themeToProps(mergedTheme.colors, "backgroundColor", true, "bg"),
     ...themeToProps(mergedTheme.colors, "color", true, "c"),
@@ -26,8 +28,10 @@ export const initThemeProvider = function(props, cb) {
 
   return merge({}, mergedTheme, {
     shorthandProps: {
+      ...theme.shorthandProps,
       ...miscShorthandProps,
-      ...textShorthandsProps
+      ...textShorthandsProps,
+      ...shorthandProps(mergedTheme)
     }
   });
 };
