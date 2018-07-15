@@ -8,6 +8,11 @@ export const shorthandAttributes = {
     prop: "height",
     cssProperty: "height"
   }),
+  fontFamily: style({
+    prop: "fontFamily",
+    cssProperty: "fontFamily",
+    key: "fonts"
+  }),
   fontSize: style({
     prop: "fontSize",
     cssProperty: "fontSize",
@@ -58,6 +63,10 @@ export const shorthandAttributes = {
   borderWidth: style({
     prop: "borderWidth",
     cssProperty: "borderWidth"
+  }),
+  boxShadow: style({
+    prop: "boxShadow",
+    cssProperty: "boxShadow"
   }),
   opacity: style({
     prop: "opacity",

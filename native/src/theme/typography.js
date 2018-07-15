@@ -1,5 +1,7 @@
 import { PixelRatio } from "react-native";
 
+export const fonts = {};
+
 export const fontSizes = {
   hero: PixelRatio.roundToNearestPixel(64),
   largeTitle: PixelRatio.roundToNearestPixel(28),

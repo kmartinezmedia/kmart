@@ -21,8 +21,9 @@ export const initThemeProvider = function(props) {
   const { shorthandProps = () => {} } = props.theme;
 
   const miscShorthandProps = {
+    ...themeToProps(mergedTheme.fonts, "fontFamily"),
     ...themeToProps(mergedTheme.colors, "backgroundColor", true, "bg"),
-    ...themeToProps(mergedTheme.colors, "color", true, "c"),
+    ...themeToProps(mergedTheme.colors, "color"),
     ...themeToProps(mergedTheme.colors, "borderColor", true, "bc")
   };
 

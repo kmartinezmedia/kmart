@@ -8,7 +8,5 @@ const SafeAreaView = styled(SafeArea)`
 `;
 
 export const Screen = props => (
-  <SafeAreaView flex1 bgDark2>
-    {props.children}
-  </SafeAreaView>
+  <SafeAreaView flex1>{props.children}</SafeAreaView>
 );

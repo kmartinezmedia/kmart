@@ -158,18 +158,6 @@ export const shorthandProps = {
   noWrap: {
     flexWrap: "nowrap"
   },
-  light: {
-    fontFamily: "Rubik-Light"
-  },
-  regular: {
-    fontFamily: "Rubik-Regular"
-  },
-  medium: {
-    fontFamily: "Rubik-Medium"
-  },
-  bold: {
-    fontFamily: "Rubik-Bold"
-  },
   cover: {
     resizeMode: "cover"
   },
