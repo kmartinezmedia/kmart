@@ -9,6 +9,9 @@ export const shorthandProps = {
   absolute: {
     position: "absolute"
   },
+  relative: {
+    position: "relative"
+  },
   absoluteFill: {
     position: "absolute",
     top: 0,

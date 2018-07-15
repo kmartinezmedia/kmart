@@ -31,6 +31,10 @@ export const shorthandAttributes = {
     prop: "minWidth",
     cssProperty: "minWidth"
   }),
+  overflow: style({
+    prop: "overflow",
+    cssProperty: "overflow"
+  }),
   minH: style({
     prop: "minHeight",
     cssProperty: "minHeight"
@@ -82,5 +86,13 @@ export const shorthandAttributes = {
   position: style({
     prop: "position",
     cssProperty: "position"
+  }),
+  borderTopRightRadius: style({
+    prop: "borderTopRightRadius",
+    cssProperty: "borderTopRightRadius"
+  }),
+  borderTopLeftRadius: style({
+    prop: "borderTopLeftRadius",
+    cssProperty: "borderTopLeftRadius"
   })
 };
