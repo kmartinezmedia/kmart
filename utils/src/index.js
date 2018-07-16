@@ -8,3 +8,4 @@ export {
 } from "./generateShorthandSpacePropsNative";
 export { themeToProps } from "./themeToProps";
 export { setupComponent } from "./setupComponent";
+export { generateApiRouteIndex } from "./generateApiRouteIndex";

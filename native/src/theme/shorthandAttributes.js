@@ -68,6 +68,10 @@ export const shorthandAttributes = {
     prop: "borderWidth",
     cssProperty: "borderWidth"
   }),
+  borderStyle: style({
+    prop: "borderStyle",
+    cssProperty: "borderStyle"
+  }),
   boxShadow: style({
     prop: "boxShadow",
     cssProperty: "boxShadow"
