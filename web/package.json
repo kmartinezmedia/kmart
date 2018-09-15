@@ -1,0 +1,80 @@
+{
+  "name": "@kmart/web",
+  "version": "1.0.4",
+  "description": "",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/kmartinezmedia/kmart",
+  "scripts": {
+    "setup": "node init.js",
+    "prepare": "npm link @kmart/utils && npm run clean && npm run build",
+    "clean": "rimraf lib",
+    "prestart": "npm run setup",
+    "start": "babel src --watch -d lib",
+    "prebuild": "npm run setup",
+    "build": "babel src -d lib",
+    "upload": "npm publish --access=public"
+  },
+  "author": "Katherine Martinez",
+  "contributors": [
+    {
+      "name": "Katherine Martinez",
+      "email": "kmartinezmedia@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "animated": "^0.2.2",
+    "clean-element": "^1.0.0",
+    "clean-tag": "^1.0.4",
+    "common-tags": "^1.5.1",
+    "dom-helpers": "^3.2.1",
+    "glamor": "^2.20.40",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.6.1",
+    "react": "^16.1.1",
+    "react-animate-height": "^0.10.8",
+    "react-dom": "^16.2.0",
+    "react-ratio": "^0.1.5",
+    "react-router-dom": "^4.2.2",
+    "react-swipeable-views-core": "^0.12.11",
+    "react-x-ray": "^1.0.0-4",
+    "scrollmonitor": "^1.2.4",
+    "styled-components": "^2.4.0",
+    "styled-system": "1.0.8",
+    "warning": "^3.0.0",
+    "zenscroll": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-function-sent": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-json-strings": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0-beta.56",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0-beta.56",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.56",
+    "@babel/plugin-syntax-import-meta": "^7.0.0-beta.56",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.56",
+    "@babel/plugin-transform-regenerator": "^7.0.0-beta.51",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
+    "@babel/polyfill": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-react": "^7.0.0-beta.51",
+    "@babel/preset-stage-2": "^7.0.0-beta.51",
+    "@babel/runtime": "^7.0.0-beta.51",
+    "@kmart/utils": "^1.0.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.0-beta.3",
+    "babel-plugin-lodash": "^3.3.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "engines": {
+    "node": ">=8.9.4",
+    "npm": ">=5.6.0"
+  }
+}
