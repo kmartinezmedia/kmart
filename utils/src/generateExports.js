@@ -55,29 +55,42 @@ const getContents = async ({
   requires
 }) => {
   let fileNames = [];
-  await fs.readdirSync(dir).forEach(async item => {
-    const contentPath = path.join(dir, item);
-    if (fs.statSync(contentPath).isDirectory()) {
-      getContents({
-        dir: contentPath,
-        defaults,
-        wildcard,
-        showExtension,
-        requires
-      });
-    }
-    fileNames.push(item);
-  });
+  try {
+    await fs.readdirSync(dir).forEach(async item => {
+      const contentPath = path.join(dir, item);
+      if (fs.statSync(contentPath).isDirectory()) {
+        getContents({
+          dir: contentPath,
+          defaults,
+          wildcard,
+          showExtension,
+          requires
+        });
+      }
+      fileNames.push(item);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
   const fileContents = await generateExportNames({
     files: fileNames,
     defaults,
     wildcard,
     requires
   });
-  return await fs.writeFileSync(
-    path.join(dir, "index.js"),
-    prettier.format(fileContents)
-  );
+  try {
+    await fs.writeFileSync(
+      path.join(dir, "index.js"),
+      prettier.format(fileContents, {
+        parser: "babylon",
+        singleQuote: true,
+        trailingComma: "all"
+      })
+    );
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const generateExports = async ({

@@ -7,6 +7,7 @@ export * from "./KeyboardAvoidingView";
 export * from "./ScaledImage";
 export * from "./Screen";
 export * from "./ScrollView";
+export * from "./ShadowCard";
 export * from "./Text";
 export * from "./TextInput";
 export * from "./TouchableHighlight";
