@@ -1,9 +1,9 @@
-import * as typography from "./typography";
-import colors from "./colors";
-import { shorthandProps } from "./shorthandProps";
-import { shorthandAttributes } from "./shorthandAttributes";
-import { setupComponent } from "@kmart/utils/lib/setupComponent";
-import { spaceNative } from "@kmart/utils/lib/space";
+import * as typography from './typography';
+import colors from './colors';
+import space from './space';
+import { shorthandProps } from './shorthandProps';
+import { shorthandAttributes } from './shorthandAttributes';
+import { setupComponent } from './setupComponent';
 
 export const theme = {
   ...typography,
@@ -11,6 +11,6 @@ export const theme = {
   shorthandProps,
   setupComponent,
   colors,
-  space: spaceNative,
-  defaultRadius: "4px"
+  space,
+  defaultRadius: '4px',
 };

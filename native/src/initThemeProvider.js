@@ -1,6 +1,6 @@
-import merge from "lodash/merge";
-import { theme } from "./theme";
-import { themeToProps } from "@kmart/utils/lib/themeToProps";
+import merge from 'lodash/merge';
+import { theme } from './theme';
+import { themeToProps } from './utils';
 
 export const initThemeProvider = function(props) {
   const mergedTheme = merge({}, theme, props.theme);
@@ -11,20 +11,20 @@ export const initThemeProvider = function(props) {
         ...prev,
         [next]: {
           fontSize: mergedTheme.fontSizes[next],
-          lineHeight: mergedTheme.lineHeights[next]
-        }
+          lineHeight: mergedTheme.lineHeights[next],
+        },
       };
     },
-    {}
+    {},
   );
 
   const { shorthandProps = () => {} } = props.theme;
 
   const miscShorthandProps = {
-    ...themeToProps(mergedTheme.fonts, "fontFamily"),
-    ...themeToProps(mergedTheme.colors, "backgroundColor", true, "bg"),
-    ...themeToProps(mergedTheme.colors, "color"),
-    ...themeToProps(mergedTheme.colors, "borderColor", true, "bc")
+    ...themeToProps(mergedTheme.fonts, 'fontFamily'),
+    ...themeToProps(mergedTheme.colors, 'backgroundColor', true, 'bg'),
+    ...themeToProps(mergedTheme.colors, 'color'),
+    ...themeToProps(mergedTheme.colors, 'borderColor', true, 'bc'),
   };
 
   return merge({}, mergedTheme, {
@@ -32,7 +32,7 @@ export const initThemeProvider = function(props) {
       ...theme.shorthandProps,
       ...miscShorthandProps,
       ...textShorthandsProps,
-      ...shorthandProps(mergedTheme)
-    }
+      ...shorthandProps(mergedTheme),
+    },
   });
 };
