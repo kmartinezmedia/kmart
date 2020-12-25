@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
+    "outDir": "lib-temp",
+    "paths": {
+      "@kmart/*": ["./src/*"]
+    },
+    "rootDir": "./src",
+  },
+  "include": ["./src/**/*"]
+}
