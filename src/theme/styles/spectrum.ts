@@ -2,7 +2,7 @@
  * DO NOT MODIFY
  * Generated from scripts/codegen/main.ts
  */
-import { SpectrumMap } from '@kmart/theme/spectrum/types';
+import { SpectrumMap } from '@kmart/types';
 
 export const dark: SpectrumMap = {
   blue0: [0, 16, 51],

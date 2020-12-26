@@ -1,4 +1,4 @@
-import { AnyObject, StringKey } from './types';
+import { AnyObject, StringKey } from '@kmart/types';
 
 export const emptyObject = {};
 

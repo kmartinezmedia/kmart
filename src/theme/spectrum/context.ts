@@ -1,9 +1,9 @@
-import * as React from 'react';
+import {createContext} from 'react';
 
-import { SpectrumMode } from './types';
+import { SpectrumMode } from '@kmart/types';
 
 export const DEFAULT_SPECTRUM = 'light';
 
-export const SpectrumContext = React.createContext<SpectrumMode>(
+export const SpectrumContext = createContext<SpectrumMode>(
   DEFAULT_SPECTRUM,
 );

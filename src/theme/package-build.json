@@ -1,7 +1,0 @@
-{
-  "name": "@kmart/theme",
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "@types/react": "^16.0.0"
-  }
-}

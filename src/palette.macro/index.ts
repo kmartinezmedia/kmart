@@ -1,7 +1,7 @@
 import { parse } from '@babel/parser';
 import { ObjectProperty, SpreadElement, ObjectMethod } from '@babel/types';
-import { PaletteAlias, PaletteConfig } from '@kmart/theme';
-import { toCssVar, toCssVarFn, CssVariable, AnyObject } from '@kmart/utils';
+import { PaletteAlias, PaletteConfig, CssVariable, AnyObject } from '@kmart/types';
+import { toCssVar, toCssVarFn } from '@kmart/utils';
 import { createMacro } from 'babel-plugin-macros';
 
 export type MacroHandler = Parameters<typeof createMacro>[0];

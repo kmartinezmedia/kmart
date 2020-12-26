@@ -3,4 +3,5 @@
 .jest-*
 lib
 node_modules
-scripts/lib
+scripts/build.js
+lib-temp

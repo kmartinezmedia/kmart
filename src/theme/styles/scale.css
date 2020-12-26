@@ -1,10 +1,4 @@
-/**
- * DO NOT MODIFY
- * Generated from scripts/codegen/main.ts
- */
-import css from '@kmart/css.macro';
-
-export const xSmall = css`
+.xSmall {
   --display1-font-size: 61px;
   --display1-line-height: 68px;
   --display1-letter-spacing: 0.005em;
@@ -52,9 +46,9 @@ export const xSmall = css`
   --legal-line-height: 12px;
   --legal-letter-spacing: 0.014em;
   --legal-font-weight: 400;
-`;
+};
 
-export const small = css`
+.small {
   --display1-font-size: 62px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.005em;
@@ -102,9 +96,9 @@ export const small = css`
   --legal-line-height: 16px;
   --legal-letter-spacing: 0.007em;
   --legal-font-weight: 400;
-`;
+}
 
-export const medium = css`
+.medium {
   --display1-font-size: 63px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.005em;
@@ -152,9 +146,9 @@ export const medium = css`
   --legal-line-height: 16px;
   --legal-letter-spacing: 0;
   --legal-font-weight: 400;
-`;
+};
 
-export const large = css`
+.large {
   --display1-font-size: 64px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.004em;
@@ -200,9 +194,9 @@ export const large = css`
   --legal-line-height: 16px;
   --legal-letter-spacing: -0.006em;
   --legal-font-weight: 400;
-`;
+};
 
-export const xLarge = css`
+.xLarge {
   --display1-font-size: 66px;
   --display1-line-height: 76px;
   --display1-letter-spacing: 0.004em;
@@ -247,9 +241,9 @@ export const xLarge = css`
   --legal-line-height: 20px;
   --legal-letter-spacing: -0.016em;
   --legal-font-weight: 400;
-`;
+};
 
-export const xxLarge = css`
+.xxLarge {
   --display1-font-size: 68px;
   --display1-line-height: 76px;
   --display1-letter-spacing: 0.003em;
@@ -294,9 +288,9 @@ export const xxLarge = css`
   --legal-line-height: 20px;
   --legal-letter-spacing: -0.026em;
   --legal-font-weight: 400;
-`;
+};
 
-export const xxxLarge = css`
+.xxxLarge {
   --display1-font-size: 70px;
   --display1-line-height: 80px;
   --display1-letter-spacing: 0.003em;
@@ -341,4 +335,4 @@ export const xxxLarge = css`
   --legal-line-height: 24px;
   --legal-letter-spacing: -0.021em;
   --legal-font-weight: 400;
-`;
+};

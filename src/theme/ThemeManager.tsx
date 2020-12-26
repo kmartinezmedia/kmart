@@ -1,25 +1,19 @@
-import * as React from 'react';
-import { usePalette } from './palette/usePalette.web';
+import "./styles/scale.css";
+import "./styles/spectrum.css";
+import React, { memo } from "react";
+import { usePalette } from './palette/usePalette';
 import { useScale } from './scale/useScale';
 import { useSpectrum } from './spectrum/useSpectrum';
-import * as scaleCss from './styles/scale.web';
-import * as spectrumCss from './styles/spectrum.web';
-import { mapKeys, toCssVar } from '@kmart/utils';
 import { join } from '@kmart/utils';
 
-export const ThemeManager: React.FC = React.memo(({ children }) => {
+export const ThemeManager: React.FC = memo(({ children }) => {
   const scale = useScale();
   const spectrum = useSpectrum();
   const palette = usePalette();
-  const paletteVars = React.useMemo(
-    () => mapKeys(palette, (_, key) => toCssVar(key)),
-    [palette],
-  );
-
   return (
     <div
-      className={join(scaleCss[scale], spectrumCss[spectrum])}
-      style={paletteVars}>
+      className={join(scale, spectrum)}
+      style={palette}>
       {children}
     </div>
   );

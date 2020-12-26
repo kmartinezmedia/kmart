@@ -1,0 +1,40 @@
+
+.foreground {
+  color: var(--foreground);
+}
+
+.foregroundMuted {
+  color: var(--foreground-muted);
+}
+
+.primary {
+  color: var(--primary);
+}
+
+.primaryForeground {
+  color: var(--primary-foreground);
+}
+
+.secondary {
+  color: var(--secondary);
+}
+
+.secondaryForeground {
+  color: var(--secondary-foreground);
+}
+
+.positive {
+  color: var(--positive);
+}
+
+.positiveForeground {
+  color: var(--positive-foreground);
+}
+
+.negative {
+  color: var(--negative);
+}
+
+.negativeForeground {
+  color: var(--negative-foreground);
+}

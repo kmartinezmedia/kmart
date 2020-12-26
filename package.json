@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.11.0",
   "scripts": {
-    "build": "babel scripts/build.ts --out-file scripts/build.js && node scripts/build.js"
+    "build": "babel scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
+    "postbuild": "rimraf scripts/build.js",
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/parser": "^7.12.11",
+    "@babel/plugin-proposal-export-namespace-from": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
@@ -19,7 +22,6 @@
     "@types/prettier": "^2.1.6",
     "@types/react": "^17.0.0",
     "babel-plugin-macros": "^3.0.1",
-    "babel-plugin-module-resolver": "^4.1.0",
     "prettier": "^2.2.1",
     "react-dom": "^17.0.1",
     "rimraf": "^3.0.2",

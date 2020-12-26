@@ -1,16 +1,14 @@
-import * as React from 'react';
-import { PaletteConfigProvider } from './palette/PaletteConfigProvider';
-import { PaletteConfig } from './palette/types';
+import React from "react";
+import { PaletteProvider } from './palette/PaletteProvider';
+import { SpectrumMode, Scale, PaletteConfigTransformed } from '@kmart/types';
 import { ScaleProvider } from './scale/ScaleProvider';
-import { Scale } from './scale/types';
 import { SpectrumProvider } from './spectrum/SpectrumProvider';
-import { SpectrumMode } from './spectrum/types';
 import { ThemeManager } from './ThemeManager';
 
 type ThemeProviderProps = {
   scale?: Scale;
   spectrum?: SpectrumMode;
-  palette?: PaletteConfig;
+  palette?: PaletteConfigTransformed;
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = React.memo(
@@ -18,9 +16,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = React.memo(
     return (
       <ScaleProvider value={scale}>
         <SpectrumProvider value={spectrum}>
-          <PaletteConfigProvider value={palette}>
+          <PaletteProvider value={palette}>
             <ThemeManager>{children}</ThemeManager>
-          </PaletteConfigProvider>
+          </PaletteProvider>
         </SpectrumProvider>
       </ScaleProvider>
     );

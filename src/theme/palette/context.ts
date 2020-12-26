@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import { internalPalette } from './constants';
-import { InternalPaletteConfig } from './types';
+import { defaultPalette } from './defaultPalette';
+import { PaletteConfigTransformed } from '@kmart/types';
 
-export const PaletteConfigContext = React.createContext<InternalPaletteConfig>(
-  internalPalette,
-);
+export const PaletteContext = React.createContext<PaletteConfigTransformed>(defaultPalette);

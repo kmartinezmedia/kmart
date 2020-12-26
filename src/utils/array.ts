@@ -1,5 +1,5 @@
 export const emptyArray = [];
 
-export const join = (...args: string[]) => {
-  return args.join(' ')
+export const join = (...args: Array<string | undefined>) => {
+  return args.filter(Boolean).join(' ')
 }
