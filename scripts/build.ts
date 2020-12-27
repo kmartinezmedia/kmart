@@ -5,7 +5,7 @@ import path  from 'path';
 import fsExtra from 'fs-extra';
 import { processCss } from "./linaria";
 
-type PackageName = 'theme' | 'utils' | 'types' | 'css';
+type PackageName = 'css' | 'kmart' | 'theme' | 'utils' | 'types';
 
 const [_nodePath, _script, versionBump] = process.argv;
 const libDir = path.join(process.cwd(), 'lib');
@@ -33,6 +33,18 @@ const getPkgPath = (name: string, ...args: string[]) => {
 
 // Create package.json for each package
 const configs: Record<PackageName, object> = {
+  kmart: {
+    main: 'cjs/index.js',
+    module: 'es6/index.js',
+    sideEffects: ["*.css"],
+    files: ['*.css'],
+    dependencies: {
+      "@kmart/css": `^${version}`,
+      "@kmart/theme": `^${version}`,
+      "@kmart/types": `^${version}`,
+      "@kmart/utils": `^${version}`
+    },
+  },
   css: {
     main: 'cjs/index.js',
     module: 'es6/index.js',
@@ -124,7 +136,7 @@ packages.forEach(pkg => {
 
 packages.forEach(name => {
   const packageData = {
-    name: `@kmart/${name}`,
+    name: name === 'kmart' ? 'kmart' : `@kmart/${name}`,
     author: "Katherine Martinez",
     license: "ISC",
     private: false,
