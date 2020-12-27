@@ -17,6 +17,7 @@ const writePrettyFile = (outFilePath: string, content: string, parser: prettier.
 
 const tempLib = path.join(process.cwd(), 'lib-temp');
 const lib = path.join(process.cwd(), 'lib');
+const oldVersion = process.env.npm_package_version;
 let version = process.env.npm_package_version;
 
 if (versionBump) {
@@ -39,7 +40,7 @@ if (existsSync(lib)) {
 // execSync('rollup -c');
 
 // Build temp-lib
-execSync('babel src --out-dir lib-temp --extensions .ts,.tsx')
+execSync('babel src --out-dir lib-temp --extensions .ts,.tsx --copy-files')
 
 // Run typescript in temp-lib
 execSync('tsc')
@@ -60,6 +61,7 @@ const packages = readdirSync(tempLib).filter(f => statSync(path.join(tempLib, f)
 const configs: Record<PackageName, object> = {
   theme: {
     main: 'index.js',
+    sideEffects: ["ThemeManger.js"],
     dependencies: {
       "@kmart/utils": `^${version}`,
       "@kmart/types": `^${version}`
@@ -108,7 +110,9 @@ packages.forEach(name => {
   }
   execSync(`cp -r .npmrc lib/${name}/.npmrc`);
   writePrettyFile(path.join(lib, name, 'package.json'), JSON.stringify(packageData), 'json');
-  execSync(`cd ${path.join(lib, name)} && npm run deploy`)
+  if (oldVersion !== version) {
+    execSync(`cd ${path.join(lib, name)} && npm run deploy`)
+  }
 })
 
 // delete temp lib folder
