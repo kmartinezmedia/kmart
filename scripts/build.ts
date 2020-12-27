@@ -138,15 +138,18 @@ packages.forEach(name => {
     version,
     contributors: [
       {
-        "name": "Katherine Martinez",
-        "email": "kmartinezmedia@gmail.com"
+        name: "Katherine Martinez",
+        email: "kmartinezmedia@gmail.com"
       }
     ],
+    publishConfig: {
+      registry: "https://registry.npmjs.org"
+    },
     ...configs[name]
   }
 
-  const npmrc = name === 'kmart' ? 'base.npmrc' : 'scope.npmrc';
-  fsExtra.copySync(npmrc, `lib/${name}/.npmrc`);
+  // const npmrc = name === 'kmart' ? 'base.npmrc' : 'scope.npmrc';
+  // fsExtra.copySync(npmrc, `lib/${name}/.npmrc`);
 
   const pkgJson = JSON.stringify(packageData);
   const pkgJsonPath = getPkgPath(name, 'package.json');
