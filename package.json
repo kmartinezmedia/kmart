@@ -1,7 +1,7 @@
 {
   "name": "root",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "scripts": {
     "build": "babel scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
     "postbuild": "rimraf scripts/build.js",
