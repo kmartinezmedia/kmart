@@ -106,6 +106,7 @@ packages.forEach(name => {
     },
     ...configs[name]
   }
+  execSync(`cp -r .npmrc lib/${name}/.npmrc`);
   writePrettyFile(path.join(lib, name, 'package.json'), JSON.stringify(packageData), 'json');
   execSync(`cd ${path.join(lib, name)} && npm run deploy`)
 })
