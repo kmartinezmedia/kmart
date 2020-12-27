@@ -907,10 +907,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@kmart/palette.macro@latest":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@kmart/palette.macro/-/palette.macro-1.0.2.tgz#cbfab2fff55838e8298256cf252b45431927acc5"
-  integrity sha512-Tq6PLUodaZYUeAJYdCF+cGh6nppOs4t615HdsQ0nZrVfJemuliriZgFxDtdZWLQlBibQB88zYUvoqVPLYne6uA==
+"@kmart/palette.macro@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@kmart/palette.macro/-/palette.macro-1.4.0.tgz#58016a8c8239f8474ff11e13235e96526263907a"
+  integrity sha512-JN0wjugIqSO1FWoHrKgSI1vMR+2cPZ9FP0fw6+jBuE5EQd81oWtPrzf+Eq740CJArzXzT4M125FOUKggX3Xzbg==
   dependencies:
     "@babel/parser" "^7.12.11"
     "@kmart/types" latest
