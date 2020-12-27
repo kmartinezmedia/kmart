@@ -3,9 +3,9 @@
   "private": true,
   "version": "2.6.1",
   "scripts": {
-    "build:lib": "npx babel --config-file ./scripts/babel.config.js scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
-    "build:linaria": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
-    "build": "yarn build:lib && yarn build:linaria",
+    "build:buildScript": "npx babel --config-file ./scripts/babel.config.js scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
+    "build:linariaScript": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
+    "build": " yarn build:linariaScript && yarn build:buildScript",
     "postbuild": "rimraf scripts/build.js && rimraf scripts/linaria.js",
     "typecheck": "tsc"
   },
@@ -21,6 +21,7 @@
     "@linaria/core": "^3.0.0-beta.1",
     "@linaria/react": "^3.0.0-beta.1",
     "@linaria/shaker": "^3.0.0-beta.1",
+    "@types/fs-extra": "^9.0.6",
     "@types/glob": "^7.1.3",
     "@types/lodash": "^4.14.166",
     "@types/mkdirp": "^1.0.1",
@@ -30,6 +31,7 @@
     "@types/react": "^17.0.0",
     "babel-plugin-macros": "^3.0.1",
     "babel-plugin-transform-string-literal-replace": "^1.0.2",
+    "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "mkdirp": "^1.0.4",
     "normalize-path": "^3.0.0",

@@ -11,7 +11,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedModules": true,
-    "outDir": "lib",
+    "outDir": "typings",
     "paths": {
       "@kmart/*": ["./src/*"]
     },

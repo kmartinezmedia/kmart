@@ -6,87 +6,90 @@ import { readFileSync, readdirSync, writeFileSync } from 'fs'
 import { transform } from '@linaria/babel-preset';
 
 const cssInDir = path.join(process.cwd(), 'src/css');
-const cssOutDir = path.join(process.cwd(), 'lib/css');
 
-const files = readdirSync(cssInDir);
-const options = { sourceMaps: false };
-let count = 0;
+export const processCss = (libDir: string) => {
+  const files = readdirSync(cssInDir);
+  const options = { sourceMaps: false };
+  let count = 0;
 
-const resolvedFiles = files.reduce(
-  (acc, item) => [
-    ...acc,
-    ...glob.sync(path.join(cssInDir, item), { absolute: true }),
-  ],
-  [] as string[]
-);
-
-resolvedFiles.forEach((filename) => {
-  const outputBasename = path
-    .basename(filename)
-    .replace(path.extname(filename), '.css');
-
-  const outputFilename = path.join(cssOutDir, outputBasename)
-
-  const { cssText, sourceMap, cssSourceMapText } = transform(
-    readFileSync(filename).toString(),
-    {
-      filename,
-      outputFilename,
-      pluginOptions: {
-        configFile: path.join(process.cwd(), 'linaria.config.js')
-      },
-    }
+  const resolvedFiles = files.reduce(
+    (acc, item) => [
+      ...acc,
+      ...glob.sync(path.join(cssInDir, item), { absolute: true }),
+    ],
+    [] as string[]
   );
 
-  if (cssText) {
-    mkdirp.sync(path.dirname(outputFilename));
+  resolvedFiles.forEach((filename) => {
+    const outputBasename = path
+      .basename(filename)
+      .replace(path.extname(filename), '.css');
 
-    const cssContent =
-      options.sourceMaps && sourceMap
-        ? `${cssText}\n/*# sourceMappingURL=${outputFilename}.map */`
-        : cssText;
+    const outputFilename = path.join(libDir, outputBasename)
 
-    writeFileSync(outputFilename, cssContent);
+    const { cssText, sourceMap, cssSourceMapText } = transform(
+      readFileSync(filename).toString(),
+      {
+        filename,
+        outputFilename,
+        pluginOptions: {
+          configFile: path.join(process.cwd(), 'linaria.config.js')
+        },
+      }
+    );
 
-    if (
-      options.sourceMaps &&
-      sourceMap &&
-      typeof cssSourceMapText !== 'undefined'
-    ) {
-      writeFileSync(`${outputFilename}.map`, cssSourceMapText);
-    }
+    if (cssText) {
+      mkdirp.sync(path.dirname(outputFilename));
 
-      const inputFilename = path.resolve(
-        cssOutDir,
-        path.relative(cssInDir, filename)
-      );
+      const cssContent =
+        options.sourceMaps && sourceMap
+          ? `${cssText}\n/*# sourceMappingURL=${outputFilename}.map */`
+          : cssText;
 
-      const normalizedInputFilename = inputFilename.replace(/\.tsx?/, '.js')
+      writeFileSync(outputFilename, cssContent);
 
-      const relativePath = normalize(
-        path.relative(path.dirname(inputFilename), outputFilename)
-      );
-
-      const requireStatement = `\nrequire('${
-        relativePath.startsWith('.') ? relativePath : `./${relativePath}`
-      }');`;
-
-      let inputContent = readFileSync(normalizedInputFilename, 'utf-8');
-
-      if (!inputContent.trim().endsWith(requireStatement)) {
-        inputContent = `${inputContent}\n${requireStatement}\n`;
-        // Remove uneeded linaria import
-        inputContent = inputContent.replace(`import { css } from '@linaria\/core';`, '');
-        
-        writeFileSync(
-          normalizedInputFilename,
-          inputContent
-        );
+      if (
+        options.sourceMaps &&
+        sourceMap &&
+        typeof cssSourceMapText !== 'undefined'
+      ) {
+        writeFileSync(`${outputFilename}.map`, cssSourceMapText);
       }
 
-    count++;
-  }
+        const inputFilename = path.resolve(
+          libDir,
+          path.relative(cssInDir, filename)
+        );
+
+        const normalizedInputFilename = inputFilename.replace(/\.tsx?/, '.js')
+
+        const relativePath = normalize(
+          path.relative(path.dirname(inputFilename), outputFilename)
+        );
+
+        const requireStatement = `\nrequire('${
+          relativePath.startsWith('.') ? relativePath : `./${relativePath}`
+        }');`;
+
+        let inputContent = readFileSync(normalizedInputFilename, 'utf-8');
+
+        if (!inputContent.trim().endsWith(requireStatement)) {
+          inputContent = `${inputContent}\n${requireStatement}\n`;
+          
+          // Remove uneeded linaria import
+          inputContent = inputContent.replace(`import { css } from '@linaria\/core';`, '');
+          inputContent = inputContent.replace(`var _core = require\("@linaria\/core"\);`, '')
+          
+          writeFileSync(
+            normalizedInputFilename,
+            inputContent
+          );
+        }
+
+      count++;
+    }
 });
 
 // eslint-disable-next-line no-console
 console.log(`Successfully extracted ${count} CSS files.`);
+}

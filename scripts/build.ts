@@ -1,59 +1,41 @@
 import * as prettier from 'prettier';
-import { existsSync, readdirSync, statSync, writeFileSync } from 'fs'
+import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'fs'
 import { execSync } from 'child_process';
 import path  from 'path';
-
-const libDir = path.join(process.cwd(), 'lib');
-
-const [_nodePath, _script, versionBump] = process.argv;
-const oldVersion = process.env.npm_package_version;
-let version = process.env.npm_package_version;
+import fsExtra from 'fs-extra';
+import { processCss } from "./linaria";
 
 type PackageName = 'theme' | 'utils' | 'types' | 'css';
 
-const writePrettyFile = (outFilePath: string, content: string, parser: prettier.BuiltInParserName | undefined = 'typescript'): void => {
-  const prettiered = prettier.format(content, {
-    parser: parser
-  });
-  writeFileSync(outFilePath, prettiered, { encoding: 'utf8', flag: 'w' });
-  console.info(`Wrote ${outFilePath}`);
-}
+const [_nodePath, _script, versionBump] = process.argv;
+const libDir = path.join(process.cwd(), 'lib');
+const typingsDir = path.join(process.cwd(), 'typings');
+let version = process.env.npm_package_version;
 
+// es6 syntax (import) and cjs/commonjs syntax (require)
+const outputs = ['es6', 'cjs'];
+
+// Bump version if yarn build is run with major, minor or patch
 if (versionBump) {
-  console.log(version)
+  console.log('Current version:', version)
   execSync(`npm version ${versionBump}`)
   version = require('../package.json').version;
-  console.log(version)
+  console.log('New version:', version)
 }
 
-// Cleanup
-if (existsSync(libDir)) {
-  execSync('rimraf lib')
-}
-
-// Build temp-lib
-execSync('npx babel src --out-dir lib --extensions .ts,.tsx --copy-files')
-
-// Run typescript in temp-lib
-execSync('tsc')
-
-// Create lib
-// mkdirSync("lib");
-
-// Copy temp-lib to lib
-// execSync(`cp -r lib-temp/* lib`);
-
-const getVersion = (packageName: string) => {
+const getDepVersion = (packageName: string) => {
   return require('../package.json').devDependencies[packageName];
 } 
 
-const packages = readdirSync(libDir).filter(f => statSync(path.join(libDir, f)).isDirectory()) as PackageName[]
+const getPkgPath = (name: string, ...args: string[]) => {
+  return path.join(libDir, name, ...args);
+}
 
 // Create package.json for each package
 const configs: Record<PackageName, object> = {
   css: {
-    main: 'index.js',
-    module: 'index.js',
+    main: 'cjs/index.js',
+    module: 'es6/index.js',
     sideEffects: ["*.css"],
     files: ['*.css'],
     dependencies: {
@@ -62,8 +44,8 @@ const configs: Record<PackageName, object> = {
     peerDependencies: {}
   },
   theme: {
-    main: 'index.js',
-    module: 'index.js',
+    main: 'cjs/index.js',
+    module: 'es6/index.js',
     sideEffects: ["*.css"],
     dependencies: {
       "@kmart/css": `^${version}`,
@@ -76,8 +58,8 @@ const configs: Record<PackageName, object> = {
     }
   },
   utils: {
-    main: 'index.js',
-    module: 'index.js',
+    main: 'cjs/index.js',
+    module: 'es6/index.js',
     dependencies: {
       "@kmart/types": `^${version}`
     }
@@ -86,13 +68,59 @@ const configs: Record<PackageName, object> = {
     types: "./index.d.ts",
     dependencies: {
       "@types/react": "^16.9.0",
-      "type-fest": getVersion('type-fest')
+      "type-fest": getDepVersion('type-fest')
     },
     peerDependencies: {
-      "typescript": getVersion('typescript')
+      "typescript": getDepVersion('typescript')
     }
   }
 };
+
+
+const writePrettyFile = (outFilePath: string, content: string, parser: prettier.BuiltInParserName | undefined = 'typescript'): void => {
+  const prettiered = prettier.format(content, {
+    parser: parser
+  });
+  writeFileSync(outFilePath, prettiered, { encoding: 'utf8', flag: 'w' });
+  console.info(`Wrote ${outFilePath}`);
+}
+
+// Cleanup old build
+if (existsSync(libDir)) {
+  execSync('rimraf lib')
+}
+
+// Build types to temp typings folder at root
+execSync('tsc')
+
+// Get packages created from typescript
+const packages = readdirSync(typingsDir).filter(f => statSync(path.join(typingsDir, f)).isDirectory()) as PackageName[];
+
+// Build lib
+outputs.forEach(output => {
+  execSync(`BABEL_ENV=${output} npx babel src --out-dir ${output} --extensions .ts,.tsx --copy-files`)
+  packages.forEach(pkg => {
+    fsExtra.moveSync(`${output}/${pkg}`, `lib/${pkg}/${output}`);
+  })
+  processCss(path.join(process.cwd(), 'lib/css', output))
+})
+
+// Copy temporary typings to typings folder for each package
+packages.forEach(pkg => {
+  if (pkg === 'types') {
+    execSync('rimraf lib/types')
+    fsExtra.moveSync(`typings/${pkg}`, `lib/${pkg}`);
+  } else {
+    fsExtra.moveSync(`typings/${pkg}`, `lib/${pkg}/typings`);
+  }
+})
+
+
+// Create lib
+// mkdirSync("lib");
+
+// Copy temp-lib to lib
+// execSync(`cp -r lib-temp/* lib`);
 
 packages.forEach(name => {
   const packageData = {
@@ -114,9 +142,13 @@ packages.forEach(name => {
     ...configs[name]
   }
   execSync(`cp -r .npmrc lib/${name}/.npmrc`);
-  writePrettyFile(path.join(libDir, name, 'package.json'), JSON.stringify(packageData), 'json');
-  if (oldVersion !== version) {
-    execSync(`cd ${path.join(libDir, name)} && npm run deploy`)
+  const pkgJson = JSON.stringify(packageData);
+  const pkgJsonPath = getPkgPath(name, 'package.json');
+  // Add package.json file for package
+  writePrettyFile(pkgJsonPath, pkgJson, 'json');
+
+  if (versionBump) {
+    execSync(`cd ${getPkgPath(name)} && npm run deploy`)
   }
 })
 
@@ -124,8 +156,8 @@ packages.forEach(name => {
 // delete unused js versions of declaration files
 // TODO: lookup * .d.js estension to delete
 execSync([
-  // 'rimraf lib-temp',
+  'rimraf typings',
   'rimraf lib/types/index.js',
-  'rimraf lib/theme/css.d.js',
-  'rimraf lib/css/index.d.ts'
+  ...outputs.map(item => `rimraf ${item}`),
+  ...outputs.map(item => `rimraf lib/theme/${item}/css.d.js`)
 ].join(' && '))
