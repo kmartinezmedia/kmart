@@ -142,9 +142,6 @@ packages.forEach(name => {
         "email": "kmartinezmedia@gmail.com"
       }
     ],
-    scripts: {
-      deploy: "npm publish --access public"
-    },
     ...configs[name]
   }
 
@@ -157,7 +154,7 @@ packages.forEach(name => {
   writePrettyFile(pkgJsonPath, pkgJson, 'json');
 
   if (versionBump) {
-    execSync(`cd ${getPkgPath(name)} && npm run deploy`)
+    execSync(`cd ${getPkgPath(name)} && npm publish --access public`)
   }
 })
 
