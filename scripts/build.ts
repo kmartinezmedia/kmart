@@ -108,7 +108,7 @@ execSync('tsc')
 // Get packages created from typescript
 const packages = readdirSync(typingsDir).filter(f => statSync(path.join(typingsDir, f)).isDirectory()) as PackageName[];
 
-// Build lib
+// Build temp es6 and cjs folders and copy over to lib
 outputs.forEach(output => {
   execSync(`BABEL_ENV=${output} npx babel src --out-dir ${output} --extensions .ts,.tsx --copy-files`)
   packages.forEach(pkg => {
@@ -127,12 +127,6 @@ packages.forEach(pkg => {
   }
 })
 
-
-// Create lib
-// mkdirSync("lib");
-
-// Copy temp-lib to lib
-// execSync(`cp -r lib-temp/* lib`);
 
 packages.forEach(name => {
   const packageData = {
@@ -168,7 +162,6 @@ packages.forEach(name => {
 })
 
 // CLEANUP
-// delete unused js versions of declaration files
 // TODO: lookup * .d.js estension to delete
 execSync([
   'rimraf typings',
