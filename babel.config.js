@@ -1,4 +1,3 @@
-console.log(process.BABEL_OUTPUT)
 module.exports = {
   presets: [ '@babel/preset-typescript', '@babel/preset-react', "@linaria"],
   plugins: ['@babel/plugin-proposal-export-namespace-from', 'macros'],
