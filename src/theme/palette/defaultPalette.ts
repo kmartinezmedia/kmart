@@ -1,4 +1,4 @@
-import createPalette from '../../palette.macro';
+import createPalette from '@kmart/palette.macro';
 
 export const defaultPalette = createPalette({
   foreground: 'gray100',

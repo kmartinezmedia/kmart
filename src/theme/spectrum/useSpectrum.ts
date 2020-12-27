@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import { DEFAULT_SPECTRUM, SpectrumContext } from '@kmart/theme/spectrum/context';
+import { DEFAULT_SPECTRUM, SpectrumContext } from './context';
 
 export const useSpectrum = () => {
   const context = useContext(SpectrumContext);

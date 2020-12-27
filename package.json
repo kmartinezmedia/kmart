@@ -1,7 +1,7 @@
 {
   "name": "root",
   "private": true,
-  "version": "0.11.0",
+  "version": "2.0.0",
   "scripts": {
     "build": "babel scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
     "postbuild": "rimraf scripts/build.js",
@@ -10,13 +10,11 @@
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
-    "@babel/parser": "^7.12.11",
     "@babel/plugin-proposal-export-namespace-from": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
-    "@babel/types": "^7.12.12",
-    "@types/babel-plugin-macros": "^2.8.4",
+    "@kmart/palette.macro": "latest",
     "@types/lodash": "^4.14.166",
     "@types/node": "^14.14.16",
     "@types/prettier": "^2.1.6",

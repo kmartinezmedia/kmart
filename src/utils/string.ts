@@ -1,6 +1,4 @@
-import _camelCase from 'lodash/camelCase';
-import _kebabCase from 'lodash/kebabCase';
-import upperFirst from 'lodash/upperFirst';
+import {camelCase as _camelCase, kebabCase as _kebabCase, upperFirst } from 'lodash';
 import { CamelCase, KebabCase, PascalCase } from 'type-fest';
 
 export const camelCase = <T extends string>(str: T): CamelCase<T> =>

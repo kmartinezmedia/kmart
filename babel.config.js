@@ -1,4 +1,4 @@
 module.exports = {
   presets: ['@babel/preset-typescript', '@babel/preset-env', '@babel/preset-react'],
-  plugins: ['@babel/plugin-proposal-export-namespace-from']
+  plugins: ['@babel/plugin-proposal-export-namespace-from', 'macros']
 }

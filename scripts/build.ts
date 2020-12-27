@@ -5,7 +5,7 @@ import path  from 'path';
 
 const [_nodePath, _script, versionBump] = process.argv;
 
-type PackageName = 'theme' | 'utils' | 'palette.macro' | 'types';
+type PackageName = 'theme' | 'utils' | 'types';
 
 const writePrettyFile = (outFilePath: string, content: string, parser: prettier.BuiltInParserName | undefined = 'typescript'): Promise<string> => {
   const prettiered = prettier.format(content, {
@@ -36,7 +36,7 @@ if (existsSync(lib)) {
 }
 
 
-// execSync('minify src/palette.macro/index.ts --out-file src/palette.macro/index.js');
+// execSync('rollup -c');
 
 // Build temp-lib
 execSync('babel src --out-dir lib-temp --extensions .ts,.tsx')
@@ -72,18 +72,8 @@ const configs: Record<PackageName, object> = {
   utils: {
     main: 'index.js',
     dependencies: {
-      "@kmart/types": `^${version}`,
-      'lodash/camelCase': getVersion('lodash'),
-      'lodash/kebabCase': getVersion('lodash'),
-      'lodash/upperFirst': getVersion('lodash')
+      "@kmart/types": `^${version}`
     }
-  },
-  'palette.macro': {
-    main: 'index.js',
-    dependencies: {
-      "@kmart/types": `^${version}`,
-      'babel-plugin-macros': getVersion('babel-plugin-macros')
-    },
   },
   types: {
     types: "./index.d.ts",
@@ -111,10 +101,13 @@ packages.forEach(name => {
         "email": "kmartinezmedia@gmail.com"
       }
     ],
+    scripts: {
+      deploy: "npm publish --access public"
+    },
     ...configs[name]
   }
   writePrettyFile(path.join(lib, name, 'package.json'), JSON.stringify(packageData), 'json');
-  // execSync(`cd ${path.join(lib, name)} && npm publish --access public`)
+  execSync(`cd ${path.join(lib, name)} && npm run deploy`)
 })
 
 // delete temp lib folder
@@ -123,5 +116,3 @@ execSync('rimraf lib-temp')
 // delete unused js versions of declaration files
 // TODO: lookup * .d.js estension to delete
 execSync('rimraf lib/types/index.js && rimraf lib/theme/css.d.js')
-
-// execSync(`cp -r lib/* node_modules/@kmart`);

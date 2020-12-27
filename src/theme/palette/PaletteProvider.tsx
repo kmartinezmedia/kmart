@@ -1,9 +1,9 @@
 import React, { useMemo, memo } from 'react';
 
+import { PaletteConfigTransformed } from '@kmart/types';
 import { emptyObject } from '@kmart/utils';
 
 import { PaletteContext } from './context';
-import { PaletteConfigTransformed } from '@kmart/types';
 import { usePalette } from './usePalette';
 
 export type PaletteProviderProps = {

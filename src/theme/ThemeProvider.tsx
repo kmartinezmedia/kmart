@@ -1,6 +1,7 @@
 import React from "react";
-import { PaletteProvider } from './palette/PaletteProvider';
 import { SpectrumMode, Scale, PaletteConfigTransformed } from '@kmart/types';
+
+import { PaletteProvider } from './palette/PaletteProvider';
 import { ScaleProvider } from './scale/ScaleProvider';
 import { SpectrumProvider } from './spectrum/SpectrumProvider';
 import { ThemeManager } from './ThemeManager';

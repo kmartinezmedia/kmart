@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
-import { SpectrumContext } from '@kmart/theme/spectrum/context';
 import { SpectrumMode } from '@kmart/types';
-import { useSpectrum } from '@kmart/theme/spectrum/useSpectrum';
+import { SpectrumContext } from './context';
+import { useSpectrum } from './useSpectrum';
 
 type SpectrumProviderProps = {
   value?: SpectrumMode;
