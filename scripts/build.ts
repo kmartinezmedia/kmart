@@ -153,7 +153,10 @@ packages.forEach(name => {
     },
     ...configs[name]
   }
-  execSync(`cp -r .npmrc lib/${name}/.npmrc`);
+
+  const npmrc = name === 'kmart' ? 'base.npmrc' : 'scope.npmrc';
+  fsExtra.copySync(npmrc, `lib/${name}/.npmrc`);
+
   const pkgJson = JSON.stringify(packageData);
   const pkgJsonPath = getPkgPath(name, 'package.json');
   // Add package.json file for package
