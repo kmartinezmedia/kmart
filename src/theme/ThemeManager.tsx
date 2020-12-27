@@ -1,5 +1,4 @@
-import "./styles/scale.css";
-import "./styles/spectrum.css";
+import { getScale, getSpectrum } from "@kmart/css"
 
 import React, { memo } from "react";
 import { join } from '@kmart/utils';
@@ -14,7 +13,7 @@ export const ThemeManager: React.FC = memo(({ children }) => {
   const palette = usePalette();
   return (
     <div
-      className={join(scale, spectrum)}
+      className={join(getScale(scale), getSpectrum(spectrum))}
       style={palette}>
       {children}
     </div>

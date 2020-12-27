@@ -1,4 +1,10 @@
-.xSmall {
+/**
+ * DO NOT MODIFY
+ * Generated from scripts/codegen/main.ts
+ */
+import { css } from '@linaria/core';
+
+export const xSmall = css`
   --display1-font-size: 61px;
   --display1-line-height: 68px;
   --display1-letter-spacing: 0.005em;
@@ -46,9 +52,20 @@
   --legal-line-height: 12px;
   --legal-letter-spacing: 0.014em;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.small {
+export const small = css`
   --display1-font-size: 62px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.005em;
@@ -96,9 +113,20 @@
   --legal-line-height: 16px;
   --legal-letter-spacing: 0.007em;
   --legal-font-weight: 400;
-}
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.medium {
+export const medium = css`
   --display1-font-size: 63px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.005em;
@@ -146,9 +174,20 @@
   --legal-line-height: 16px;
   --legal-letter-spacing: 0;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.large {
+export const large = css`
   --display1-font-size: 64px;
   --display1-line-height: 72px;
   --display1-letter-spacing: 0.004em;
@@ -194,9 +233,20 @@
   --legal-line-height: 16px;
   --legal-letter-spacing: -0.006em;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.xLarge {
+export const xLarge = css`
   --display1-font-size: 66px;
   --display1-line-height: 76px;
   --display1-letter-spacing: 0.004em;
@@ -241,9 +291,20 @@
   --legal-line-height: 20px;
   --legal-letter-spacing: -0.016em;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.xxLarge {
+export const xxLarge = css`
   --display1-font-size: 68px;
   --display1-line-height: 76px;
   --display1-letter-spacing: 0.003em;
@@ -288,9 +349,20 @@
   --legal-line-height: 20px;
   --legal-letter-spacing: -0.026em;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;
 
-.xxxLarge {
+export const xxxLarge = css`
   --display1-font-size: 70px;
   --display1-line-height: 80px;
   --display1-letter-spacing: 0.003em;
@@ -335,4 +407,15 @@
   --legal-line-height: 24px;
   --legal-letter-spacing: -0.021em;
   --legal-font-weight: 400;
-};
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+`;

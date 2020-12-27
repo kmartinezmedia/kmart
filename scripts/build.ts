@@ -1,24 +1,23 @@
 import * as prettier from 'prettier';
-import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'fs'
+import { existsSync, readdirSync, statSync, writeFileSync } from 'fs'
 import { execSync } from 'child_process';
 import path  from 'path';
 
+const libDir = path.join(process.cwd(), 'lib');
+
 const [_nodePath, _script, versionBump] = process.argv;
+const oldVersion = process.env.npm_package_version;
+let version = process.env.npm_package_version;
 
-type PackageName = 'theme' | 'utils' | 'types';
+type PackageName = 'theme' | 'utils' | 'types' | 'css';
 
-const writePrettyFile = (outFilePath: string, content: string, parser: prettier.BuiltInParserName | undefined = 'typescript'): Promise<string> => {
+const writePrettyFile = (outFilePath: string, content: string, parser: prettier.BuiltInParserName | undefined = 'typescript'): void => {
   const prettiered = prettier.format(content, {
     parser: parser
   });
   writeFileSync(outFilePath, prettiered, { encoding: 'utf8', flag: 'w' });
   console.info(`Wrote ${outFilePath}`);
 }
-
-const tempLib = path.join(process.cwd(), 'lib-temp');
-const lib = path.join(process.cwd(), 'lib');
-const oldVersion = process.env.npm_package_version;
-let version = process.env.npm_package_version;
 
 if (versionBump) {
   console.log(version)
@@ -28,41 +27,46 @@ if (versionBump) {
 }
 
 // Cleanup
-if (existsSync(tempLib)) {
-  execSync('rimraf lib-temp')
-}
-
-if (existsSync(lib)) {
+if (existsSync(libDir)) {
   execSync('rimraf lib')
 }
 
-
-// execSync('rollup -c');
-
 // Build temp-lib
-execSync('babel src --out-dir lib-temp --extensions .ts,.tsx --copy-files')
+execSync('npx babel src --out-dir lib --extensions .ts,.tsx --copy-files')
 
 // Run typescript in temp-lib
 execSync('tsc')
 
 // Create lib
-mkdirSync("lib");
+// mkdirSync("lib");
 
 // Copy temp-lib to lib
-execSync(`cp -r lib-temp/* lib`);
+// execSync(`cp -r lib-temp/* lib`);
 
 const getVersion = (packageName: string) => {
   return require('../package.json').devDependencies[packageName];
 } 
 
-const packages = readdirSync(tempLib).filter(f => statSync(path.join(tempLib, f)).isDirectory()) as PackageName[]
+const packages = readdirSync(libDir).filter(f => statSync(path.join(libDir, f)).isDirectory()) as PackageName[]
 
 // Create package.json for each package
 const configs: Record<PackageName, object> = {
+  css: {
+    main: 'index.js',
+    module: 'index.js',
+    sideEffects: ["*.css"],
+    files: ['*.css'],
+    dependencies: {
+      "@kmart/types": `^${version}`
+    },
+    peerDependencies: {}
+  },
   theme: {
     main: 'index.js',
-    sideEffects: ["ThemeManger.js"],
+    module: 'index.js',
+    sideEffects: ["*.css"],
     dependencies: {
+      "@kmart/css": `^${version}`,
       "@kmart/utils": `^${version}`,
       "@kmart/types": `^${version}`
     },
@@ -73,6 +77,7 @@ const configs: Record<PackageName, object> = {
   },
   utils: {
     main: 'index.js',
+    module: 'index.js',
     dependencies: {
       "@kmart/types": `^${version}`
     }
@@ -109,15 +114,18 @@ packages.forEach(name => {
     ...configs[name]
   }
   execSync(`cp -r .npmrc lib/${name}/.npmrc`);
-  writePrettyFile(path.join(lib, name, 'package.json'), JSON.stringify(packageData), 'json');
+  writePrettyFile(path.join(libDir, name, 'package.json'), JSON.stringify(packageData), 'json');
   if (oldVersion !== version) {
-    execSync(`cd ${path.join(lib, name)} && npm run deploy`)
+    execSync(`cd ${path.join(libDir, name)} && npm run deploy`)
   }
 })
 
-// delete temp lib folder
-execSync('rimraf lib-temp')
-
+// CLEANUP
 // delete unused js versions of declaration files
 // TODO: lookup * .d.js estension to delete
-execSync('rimraf lib/types/index.js && rimraf lib/theme/css.d.js')
+execSync([
+  // 'rimraf lib-temp',
+  'rimraf lib/types/index.js',
+  'rimraf lib/theme/css.d.js',
+  'rimraf lib/css/index.d.ts'
+].join(' && '))

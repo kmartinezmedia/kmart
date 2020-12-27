@@ -1,4 +1,10 @@
-.dark {
+/**
+ * DO NOT MODIFY
+ * Generated from scripts/codegen/main.ts
+ */
+import { css } from '@linaria/core';
+
+export const dark = css`
   --blue0: 0, 16, 51;
   --blue5: 1, 29, 91;
   --blue10: 1, 42, 130;
@@ -116,9 +122,9 @@
   --red80: 252, 174, 181;
   --red90: 254, 213, 216;
   --red100: 255, 245, 246;
-}
+`;
 
-.light {
+export const light = css`
   --blue0: 245, 248, 255;
   --blue5: 211, 225, 255;
   --blue10: 176, 202, 255;
@@ -236,4 +242,4 @@
   --red80: 145, 5, 16;
   --red90: 100, 1, 9;
   --red100: 51, 0, 4;
-}
+`;
