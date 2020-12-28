@@ -124,7 +124,7 @@ const configs: Record<PackageName, PkgConfig> = {
     main: "",
     module: "",
     typings: "./index.d.ts",
-    files: [],
+    files: ['index.d.ts'],
     sideEffects: false,
     dependencies: {
       "@types/react": "^16",
