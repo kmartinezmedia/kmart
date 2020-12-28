@@ -41,8 +41,10 @@ const defaultPkgConfig = {
   files: [
     "cjs/",
     "es6/",
+    "typings/",
     "LICENSE"
   ],
+  typings: "./typings",
 }
 
 // package.json config for each package
@@ -84,7 +86,7 @@ const configs: Record<PackageName, object> = {
   },
   types: {
     main: "",
-    types: "./index.d.ts",
+    typings: "./index.d.ts",
     dependencies: {
       "@types/react": "^16",
       "type-fest": getDepVersion('type-fest')
@@ -149,7 +151,6 @@ packages.forEach(name => {
       access: 'public',
       registry: "https://registry.npmjs.org"
     },
-    typings: "./typings",
     ...configs[name]
   }
 
