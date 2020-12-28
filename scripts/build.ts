@@ -6,7 +6,7 @@ import fsExtra from 'fs-extra';
 import { processCss } from "./linaria";
 
 
-const scopedPkgs = ['css', 'theme', 'utils', 'types'] as const;
+const scopedPkgs = ['css', 'components', 'theme', 'utils', 'types'] as const;
 const pkgs = [...scopedPkgs, 'kmart'] as const;
 type PackageName =  typeof pkgs[number]
 
@@ -93,6 +93,18 @@ const configs: Record<PackageName, PkgConfig> = {
       "@kmart/utils": pkgVersion
     },
   },
+  components: {
+    ...defaultPkgConfig,
+    dependencies: {
+      "@kmart/css": pkgVersion,
+      "@kmart/utils": pkgVersion,
+      "@kmart/types": pkgVersion
+    },
+    peerDependencies: {
+      "react": ">=16.8.0",
+      "react-dom": ">=16.8.0"
+    }
+  },
   css: {
     ...defaultPkgConfig,
     dependencies: {
@@ -128,6 +140,7 @@ const configs: Record<PackageName, PkgConfig> = {
     sideEffects: false,
     dependencies: {
       "@types/react": "^16",
+      "@types/react-dom": "^16",
       "type-fest": getDepVersion('type-fest')
     },
     typeScriptVersion: "4.1"
@@ -149,7 +162,7 @@ if (existsSync(libDir)) {
 }
 
 // Build types to temp typings folder at root
-execSync('tsc')
+execSync('tsc --emitDeclarationOnly')
 
 // Build temp es6 and cjs folders and copy over to lib
 outputs.forEach(output => {

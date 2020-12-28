@@ -10,7 +10,3 @@ export const vStack = css`
   display: flex;
   flex-direction: column;
 `;
-
-export const flexWrap = css`
-  flex-wrap: wrap;
-`;

@@ -7,7 +7,7 @@
     "build:linariaScript": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
     "build": " yarn build:linariaScript && yarn build:buildScript",
     "postbuild": "rimraf scripts/build.js && rimraf scripts/linaria.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -29,6 +29,7 @@
     "@types/normalize-path": "^3.0.0",
     "@types/prettier": "^2.1.6",
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "babel-plugin-macros": "^3.0.1",
     "babel-plugin-transform-string-literal-replace": "^1.0.2",
     "fs-extra": "^9.0.1",

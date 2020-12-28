@@ -1,4 +1,5 @@
 import { ReadonlyDeep, KebabCase } from 'type-fest';
+import { ElementRef, ForwardedRef as ReactForwardedRef } from "react";
 
 export type AnyObject = {
   [key: string]: unknown;
@@ -84,8 +85,9 @@ export type SpacingParams = {
 
 
 export type HtmlElement = keyof JSX.IntrinsicElements;
-export type DefaultComponentProps<T extends HtmlElement> = Omit<
-  React.ComponentProps<T>,
+export type HtmlForwardedRef<T extends HtmlElement> = ReactForwardedRef<ElementRef<T>>;
+export type DefaultComponentProps<T extends HtmlElement = HtmlElement> = Omit<
+  JSX.IntrinsicElements[T],
   'style' | 'className'
 > & {
   /**
@@ -95,5 +97,28 @@ export type DefaultComponentProps<T extends HtmlElement> = Omit<
   color?: PaletteForeground;
   backgroundColor?: PaletteBackground;
   spacing?: SpacingParams;
-  as?: HtmlElement;
+  as: T
 };
+
+interface CssVariables {
+  "--foreground"?: string;
+  "--foreground-muted"?: string;
+  "--background"?: string;
+  "--background-alternate"?: string;
+  "--background-overlay"?: string;
+  "--divider"?: string;
+  "--stroke"?: string;
+  "--primary"?: string;
+  "--primary-foreground"?: string;
+  "--negative"?: string;
+  "--negative-foreground"?: string;
+  "--positive"?: string;
+  "--positive-foreground"?: string;
+  "--secondary"?: string;
+  "--secondary-foreground"?: string;
+}
+
+declare module 'csstype' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface Properties extends CssVariables {}
+}

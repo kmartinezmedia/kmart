@@ -5,3 +5,6 @@ lib
 node_modules
 scripts/build.js
 lib-temp
+typings
+es6
+cjs
