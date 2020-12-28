@@ -12,8 +12,8 @@ type PackageName =  typeof pkgs[number]
 
 const [_nodePath, _script, versionBump] = process.argv;
 const libDir = path.join(process.cwd(), 'lib');
-const typingsDir = path.join(process.cwd(), 'typings');
-let version = process.env.npm_package_version;
+const tempTypings = path.join(process.cwd(), 'typings');
+let version = process.env.npm_package_version ?? '';
 
 // es6 syntax (import) and cjs/commonjs syntax (require)
 const outputs = ['es6', 'cjs'];
@@ -37,9 +37,9 @@ const getPkgPath = (name: string, ...args: string[]) => {
 const pkgVersion = `>=${version}`;
 
 const defaultPkgConfig = {
+  version,
   main: 'cjs/index.js',
   module: 'es6/index.js',
-  'jsnext:main': 'es6/index.js',
   sideEffects: ["*.css"],
   files: [
     "cjs/",
@@ -48,10 +48,42 @@ const defaultPkgConfig = {
     "LICENSE"
   ],
   typings: "./typings",
+  author: "Katherine Martinez",
+  license: "ISC",
+  private: false,
+  homepage: `https://github.com/kmartinezmedia/kmart`,
+  contributors: [
+    {
+      name: "Katherine Martinez",
+      email: "kmartinezmedia@gmail.com"
+    }
+  ],
+  publishConfig: {
+    access: 'public',
+    registry: "https://registry.npmjs.org"
+  },
+}
+
+type PkgConfig = {
+  version: string;
+  main: string;
+  module: string;
+  sideEffects: string[] | boolean;
+  files: string[];
+  typings: string;
+  author: string;
+  license: string;
+  private: boolean;
+  homepage: string;
+  contributors: object[]
+  dependencies: object;
+  peerDependencies?: object;
+  publishConfig: object;
+  typeScriptVersion?: string;
 }
 
 // package.json config for each package
-const configs: Record<PackageName, object> = {
+const configs: Record<PackageName, PkgConfig> = {
   kmart: {
     ...defaultPkgConfig,
     dependencies: {
@@ -88,8 +120,12 @@ const configs: Record<PackageName, object> = {
     }
   },
   types: {
+    ...defaultPkgConfig,
     main: "",
+    module: "",
     typings: "./index.d.ts",
+    files: [],
+    sideEffects: false,
     dependencies: {
       "@types/react": "^16",
       "type-fest": getDepVersion('type-fest')
@@ -115,9 +151,6 @@ if (existsSync(libDir)) {
 // Build types to temp typings folder at root
 execSync('tsc')
 
-// Get packages created from typescript
-const packages = readdirSync(typingsDir).filter(f => statSync(path.join(typingsDir, f)).isDirectory()) as PackageName[];
-
 // Build temp es6 and cjs folders and copy over to lib
 outputs.forEach(output => {
   execSync(`BABEL_ENV=${output} npx babel src --out-dir ${output} --extensions .ts,.tsx --copy-files`)
@@ -135,7 +168,12 @@ outputs.forEach(output => {
 })
 
 
-packages.forEach(name => {
+pkgs.forEach(name => {
+  // Bail out if dir is not found
+  if (!existsSync(getPkgPath(name))) {
+    return;
+  }
+  
   // Copy temporary typings to typings folder for each package
   if (name === 'types') {
     execSync('rimraf lib/types')
@@ -144,23 +182,17 @@ packages.forEach(name => {
     fsExtra.moveSync(`typings/${name}`, getPkgPath(name, 'typings'));
   }
 
+
+  let pkgName = `@kmart/${name}`;
+
+  if (name === 'kmart') {
+    pkgName = 'kmart'
+    const baseTypes = scopedPkgs.map(pkg => `export * from "@kmart/${pkg}";`).join('\n');
+    writeFileSync(getPkgPath('kmart/typings/index.d.ts'), `${baseTypes}`);
+  }
+
   const packageData = {
-    name: name === 'kmart' ? 'kmart' : `@kmart/${name}`,
-    author: "Katherine Martinez",
-    license: "ISC",
-    private: false,
-    homepage: `https://github.com/kmartinezmedia/kmart/tree/master/src/${name}`,
-    version,
-    contributors: [
-      {
-        name: "Katherine Martinez",
-        email: "kmartinezmedia@gmail.com"
-      }
-    ],
-    publishConfig: {
-      access: 'public',
-      registry: "https://registry.npmjs.org"
-    },
+    name: pkgName,
     ...configs[name]
   }
 
@@ -176,9 +208,6 @@ packages.forEach(name => {
     execSync(`cd ${getPkgPath(name)} && npm publish --access public`)
   }
 })
-
-const baseTypes = scopedPkgs.map(pkg => `export * from "@kmart/${pkg}";`).join('\n');
-writeFileSync(getPkgPath('kmart', 'typings/index.d.ts'), `${baseTypes}`)
 
 // CLEANUP
 // TODO: lookup * .d.js estension to delete
