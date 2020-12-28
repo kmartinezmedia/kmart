@@ -1,5 +1,5 @@
-import { ReadonlyDeep, KebabCase } from 'type-fest';
-import { ElementRef, ForwardedRef as ReactForwardedRef } from "react";
+import { ElementRef, ForwardedRef as ReactForwardedRef } from 'react';
+import { KebabCase, ReadonlyDeep } from 'type-fest';
 
 export type AnyObject = {
   [key: string]: unknown;
@@ -8,7 +8,6 @@ export type StringKey<T> = T extends string ? T : string;
 
 export type CssVariable<T extends string> = `--${KebabCase<T>}`;
 export type CssVariableFn<T extends string> = `var(${CssVariable<T>})`;
-
 
 export type SpectrumMode = 'dark' | 'light';
 
@@ -73,7 +72,7 @@ export type PaletteConfig = ReadonlyDeep<
   Record<PaletteAlias, SpectrumAlias | SpectrumAliasWithOpacity>
 >;
 
-export type PaletteConfigTransformed =  Record<CssVariable<PaletteAlias>, string>
+export type PaletteConfigTransformed = Record<CssVariable<PaletteAlias>, string>;
 
 export type Scale = 'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge' | 'xxxLarge';
 
@@ -82,7 +81,6 @@ type SpacingStep = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export type SpacingParams = {
   [key in SpacingDirection]?: SpacingStep;
 };
-
 
 export type HtmlElement = keyof JSX.IntrinsicElements;
 export type HtmlForwardedRef<T extends HtmlElement> = ReactForwardedRef<ElementRef<T>>;
@@ -97,25 +95,25 @@ export type DefaultComponentProps<T extends HtmlElement = HtmlElement> = Omit<
   color?: PaletteForeground;
   backgroundColor?: PaletteBackground;
   spacing?: SpacingParams;
-  as?: T
+  as?: T;
 };
 
 interface CssVariables {
-  "--foreground"?: string;
-  "--foreground-muted"?: string;
-  "--background"?: string;
-  "--background-alternate"?: string;
-  "--background-overlay"?: string;
-  "--divider"?: string;
-  "--stroke"?: string;
-  "--primary"?: string;
-  "--primary-foreground"?: string;
-  "--negative"?: string;
-  "--negative-foreground"?: string;
-  "--positive"?: string;
-  "--positive-foreground"?: string;
-  "--secondary"?: string;
-  "--secondary-foreground"?: string;
+  '--foreground'?: string;
+  '--foreground-muted'?: string;
+  '--background'?: string;
+  '--background-alternate'?: string;
+  '--background-overlay'?: string;
+  '--divider'?: string;
+  '--stroke'?: string;
+  '--primary'?: string;
+  '--primary-foreground'?: string;
+  '--negative'?: string;
+  '--negative-foreground'?: string;
+  '--positive'?: string;
+  '--positive-foreground'?: string;
+  '--secondary'?: string;
+  '--secondary-foreground'?: string;
 }
 
 declare module 'csstype' {

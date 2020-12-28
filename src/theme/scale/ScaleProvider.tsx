@@ -1,7 +1,8 @@
-import React, {memo} from 'react';
+import React, { memo } from 'react';
+
+import { Scale } from '@kmart/types';
 
 import { ScaleContext } from './context';
-import { Scale } from '@kmart/types';
 import { useScale } from './useScale';
 
 type ScaleProviderProps = {

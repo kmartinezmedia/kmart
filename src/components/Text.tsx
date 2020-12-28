@@ -1,8 +1,15 @@
 import React, { forwardRef } from 'react';
 
-import { getBackground, getForeground, getTextAlign, getSpacing, getTypography, getHelper } from '@kmart/css';
+import {
+  getBackground,
+  getForeground,
+  getHelper,
+  getSpacing,
+  getTextAlign,
+  getTypography,
+} from '@kmart/css';
 import { DefaultComponentProps, HtmlForwardedRef } from '@kmart/types';
-import { join } from "@kmart/utils"
+import { join } from '@kmart/utils';
 
 export type TextProps = {
   /**
@@ -26,19 +33,22 @@ export type TextProps = {
 
 const createText = (className: string, displayName: string) => {
   const isNumber = ['Label2', 'Caption'].includes(displayName);
-  const TextComponent = ({ 
-    children,
-    backgroundColor,
-    color = 'foreground',
-    textAlign = 'start',
-    noWrap = false,
-    as: Tag = 'p',
-    dangerouslySetClassName,
-    spacing,
-    ...otherProps
-   }: TextProps, ref?: HtmlForwardedRef<'p'>) => {
+  const TextComponent = (
+    {
+      children,
+      backgroundColor,
+      color = 'foreground',
+      textAlign = 'start',
+      noWrap = false,
+      dangerouslySetClassName,
+      spacing,
+      ...otherProps
+    }: TextProps,
+    ref?: HtmlForwardedRef<'p'>
+  ) => {
     return (
-      <p ref={ref}
+      <p
+        ref={ref}
         {...otherProps}
         className={join(
           getBackground(backgroundColor),
@@ -49,9 +59,10 @@ const createText = (className: string, displayName: string) => {
           getHelper(isNumber ? 'tabularNumber' : undefined),
           className,
           dangerouslySetClassName
-        )}>
-          {children}
-        </p>
+        )}
+      >
+        {children}
+      </p>
     );
   };
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { defaultPalette } from './defaultPalette';
 import { PaletteConfigTransformed } from '@kmart/types';
+
+import { defaultPalette } from './defaultPalette';
 
 export const PaletteContext = React.createContext<PaletteConfigTransformed>(defaultPalette);

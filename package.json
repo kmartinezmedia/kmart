@@ -3,11 +3,13 @@
   "private": true,
   "version": "2.7.12",
   "scripts": {
+    "prebuild": "yarn lint",
     "build:buildScript": "npx babel --config-file ./scripts/babel.config.js scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
     "build:linariaScript": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
     "build": " yarn build:linariaScript && yarn build:buildScript",
     "postbuild": "rimraf scripts/build.js && rimraf scripts/linaria.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext ts,tsx,js --fix"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -16,6 +18,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@kmart/eslint-config": "^1.0.4",
     "@kmart/palette.macro": "1.5.0",
     "@linaria/babel-preset": "^3.0.0-beta.1",
     "@linaria/core": "^3.0.0-beta.1",
@@ -31,7 +34,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "babel-plugin-macros": "^3.0.1",
-    "babel-plugin-transform-string-literal-replace": "^1.0.2",
+    "eslint": "^7.16.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "mkdirp": "^1.0.4",

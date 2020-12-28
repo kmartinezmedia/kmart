@@ -1,5 +1,6 @@
-import React from "react";
-import { SpectrumMode, Scale, PaletteConfigTransformed } from '@kmart/types';
+import React from 'react';
+
+import { PaletteConfigTransformed, Scale, SpectrumMode } from '@kmart/types';
 
 import { PaletteProvider } from './palette/PaletteProvider';
 import { ScaleProvider } from './scale/ScaleProvider';
@@ -23,7 +24,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = React.memo(
         </SpectrumProvider>
       </ScaleProvider>
     );
-  },
+  }
 );
 
 ThemeProvider.displayName = 'ThemeProvider';

@@ -1,15 +1,14 @@
 import React, { FunctionComponent, useState } from 'react';
 
 import {
-  getSpacing,
-  getForeground,
   getBackground,
   getBorderColor,
   getBorderWidth,
+  getForeground,
+  getSpacing,
 } from '@kmart/css';
 import { DefaultComponentProps } from '@kmart/types';
-import { join } from "@kmart/utils"
-
+import { join } from '@kmart/utils';
 
 export type ButtonProps = DefaultComponentProps<'button'> & {
   variant?: 'primary' | 'secondary' | 'positive' | 'negative';
@@ -23,7 +22,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   dangerouslySetClassName,
   ...otherProps
 }) => {
-  const [buttonState, setButtonState] = useState<'inactive' | 'focused'>('inactive');
+  const [buttonState] = useState<'inactive' | 'focused'>('inactive');
   return (
     <div className={join(getSpacing(spacing))}>
       <button
