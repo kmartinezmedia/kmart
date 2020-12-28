@@ -1,0 +1,35 @@
+{
+  // TypeScript
+  "javascript.validate.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.quoteStyle": "single",
+
+  // Prettier
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true, // use ⌘-K S to format without saving
+  "json.format.enable": true,
+
+  // ESLint
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".tsx", ".md", ".mdx"]
+  },
+  "eslint.packageManager": "yarn",
+  "eslint.validate": ["markdown", "javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  "gitlens.remotes": [{ "domain": "github.cbhq.net", "type": "GitHub" }]
+}
