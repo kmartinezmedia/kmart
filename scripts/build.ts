@@ -31,60 +31,65 @@ const getPkgPath = (name: string, ...args: string[]) => {
   return path.join(libDir, name, ...args);
 }
 
-// Create package.json for each package
+const pkgVersion = `>=${version}`;
+
+const defaultPkgConfig = {
+  main: 'cjs/index.js',
+  module: 'es6/index.js',
+  'jsnext:main': 'es6/index.js',
+  sideEffects: ["*.css"],
+  files: [
+    "cjs/",
+    "es6/",
+    "LICENSE"
+  ],
+}
+
+// package.json config for each package
 const configs: Record<PackageName, object> = {
   kmart: {
-    main: 'cjs/index.js',
-    module: 'es6/index.js',
-    sideEffects: ["*.css"],
-    files: ['*.css'],
+    ...defaultPkgConfig,
     dependencies: {
-      "@kmart/css": `^${version}`,
-      "@kmart/theme": `^${version}`,
-      "@kmart/types": `^${version}`,
-      "@kmart/utils": `^${version}`
+      "@kmart/css": pkgVersion,
+      "@kmart/theme": pkgVersion,
+      "@kmart/types": pkgVersion,
+      "@kmart/utils": pkgVersion
     },
   },
   css: {
-    main: 'cjs/index.js',
-    module: 'es6/index.js',
-    sideEffects: ["*.css"],
-    files: ['*.css'],
+    ...defaultPkgConfig,
     dependencies: {
-      "@kmart/types": `^${version}`
+      "@kmart/types": pkgVersion
     },
     peerDependencies: {}
   },
   theme: {
-    main: 'cjs/index.js',
-    module: 'es6/index.js',
-    sideEffects: ["*.css"],
+    ...defaultPkgConfig,
     dependencies: {
-      "@kmart/css": `^${version}`,
-      "@kmart/utils": `^${version}`,
-      "@kmart/types": `^${version}`
+      "@kmart/css": pkgVersion,
+      "@kmart/utils": pkgVersion,
+      "@kmart/types": pkgVersion
     },
     peerDependencies: {
-      "react": "^16.9.0",
-      "react-dom": "^16.9.0"
+      "react": ">=16.8.0",
+      "react-dom": ">=16.8.0"
     }
   },
   utils: {
-    main: 'cjs/index.js',
-    module: 'es6/index.js',
+    ...defaultPkgConfig,
+    sideEffects: false,
     dependencies: {
-      "@kmart/types": `^${version}`
+      "@kmart/types": pkgVersion
     }
   },
   types: {
+    main: "",
     types: "./index.d.ts",
     dependencies: {
-      "@types/react": "^16.9.0",
+      "@types/react": "^16",
       "type-fest": getDepVersion('type-fest')
     },
-    peerDependencies: {
-      "typescript": getDepVersion('typescript')
-    }
+    typeScriptVersion: "4.1"
   }
 };
 
@@ -117,18 +122,16 @@ outputs.forEach(output => {
   processCss(path.join(process.cwd(), 'lib/css', output))
 })
 
-// Copy temporary typings to typings folder for each package
-packages.forEach(pkg => {
-  if (pkg === 'types') {
-    execSync('rimraf lib/types')
-    fsExtra.moveSync(`typings/${pkg}`, `lib/${pkg}`);
-  } else {
-    fsExtra.moveSync(`typings/${pkg}`, `lib/${pkg}/typings`);
-  }
-})
-
 
 packages.forEach(name => {
+  // Copy temporary typings to typings folder for each package
+  if (name === 'types') {
+    execSync('rimraf lib/types')
+    fsExtra.moveSync(`typings/${name}`, getPkgPath(name));
+  } else {
+    fsExtra.moveSync(`typings/${name}`, getPkgPath(name, 'typings'));
+  }
+
   const packageData = {
     name: name === 'kmart' ? 'kmart' : `@kmart/${name}`,
     author: "Katherine Martinez",
@@ -143,6 +146,7 @@ packages.forEach(name => {
       }
     ],
     publishConfig: {
+      access: 'public',
       registry: "https://registry.npmjs.org"
     },
     typings: "./typings",
@@ -153,6 +157,9 @@ packages.forEach(name => {
   const pkgJsonPath = getPkgPath(name, 'package.json');
   // Add package.json file for package
   writePrettyFile(pkgJsonPath, pkgJson, 'json');
+
+  // Copy LICENSE to each package
+  fsExtra.copySync('LICENSE', getPkgPath(name, 'LICENSE'));
 
   if (versionBump) {
     execSync(`cd ${getPkgPath(name)} && npm publish --access public`)
