@@ -145,11 +145,9 @@ packages.forEach(name => {
     publishConfig: {
       registry: "https://registry.npmjs.org"
     },
+    typings: "./typings",
     ...configs[name]
   }
-
-  // const npmrc = name === 'kmart' ? 'base.npmrc' : 'scope.npmrc';
-  // fsExtra.copySync(npmrc, `lib/${name}/.npmrc`);
 
   const pkgJson = JSON.stringify(packageData);
   const pkgJsonPath = getPkgPath(name, 'package.json');

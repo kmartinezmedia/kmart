@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": false,
+    "outFile": "lib/kmart/index.d.ts",
+    "paths": {
+      "@kmart/*": ["./src/*"]
+    },
+    "rootDir": "./src",
+  },
+  "include": ["./src/**/*"]
+}
