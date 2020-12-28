@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "isolatedModules": false,
-    "outFile": "lib/kmart/index.d.ts",
-  }
-}

@@ -1,11 +1,14 @@
 import * as prettier from 'prettier';
-import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'fs'
+import { existsSync, readdirSync, statSync, writeFileSync } from 'fs'
 import { execSync } from 'child_process';
 import path  from 'path';
 import fsExtra from 'fs-extra';
 import { processCss } from "./linaria";
 
-type PackageName = 'css' | 'kmart' | 'theme' | 'utils' | 'types';
+
+const scopedPkgs = ['css', 'theme', 'utils', 'types'] as const;
+const pkgs = [...scopedPkgs, 'kmart'] as const;
+type PackageName =  typeof pkgs[number]
 
 const [_nodePath, _script, versionBump] = process.argv;
 const libDir = path.join(process.cwd(), 'lib');
@@ -118,10 +121,17 @@ const packages = readdirSync(typingsDir).filter(f => statSync(path.join(typingsD
 // Build temp es6 and cjs folders and copy over to lib
 outputs.forEach(output => {
   execSync(`BABEL_ENV=${output} npx babel src --out-dir ${output} --extensions .ts,.tsx --copy-files`)
-  packages.forEach(pkg => {
-    fsExtra.moveSync(`${output}/${pkg}`, `lib/${pkg}/${output}`);
+  pkgs.forEach(pkg => {
+    const ouputPkgDir = `${output}/${pkg}`;
+    if (existsSync(ouputPkgDir)) {
+      fsExtra.moveSync(`${output}/${pkg}`, `lib/${pkg}/${output}`);
+    }
   })
-  processCss(path.join(process.cwd(), 'lib/css', output))
+  
+  const cssPkg = getPkgPath('css', output);
+  if (existsSync(cssPkg)) {
+    processCss(cssPkg)
+  }
 })
 
 
@@ -166,6 +176,9 @@ packages.forEach(name => {
     execSync(`cd ${getPkgPath(name)} && npm publish --access public`)
   }
 })
+
+const baseTypes = scopedPkgs.map(pkg => `export * from "@kmart/${pkg}";`).join('\n');
+writeFileSync(getPkgPath('kmart', 'typings/index.d.ts'), `${baseTypes}`)
 
 // CLEANUP
 // TODO: lookup * .d.js estension to delete
