@@ -86,12 +86,12 @@ type PkgConfig = {
 const configs: Record<PackageName, PkgConfig> = {
   kmart: {
     ...defaultPkgConfig,
-    dependencies: {
-      "@kmart/css": pkgVersion,
-      "@kmart/theme": pkgVersion,
-      "@kmart/types": pkgVersion,
-      "@kmart/utils": pkgVersion
-    },
+    dependencies: scopedPkgs.reduce((prev, next) => {
+      return {
+        ...prev,
+        [`@kmart/${next}`]: pkgVersion
+      }
+    }, {})
   },
   components: {
     ...defaultPkgConfig,
