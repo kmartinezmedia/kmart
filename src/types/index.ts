@@ -97,7 +97,7 @@ export type DefaultComponentProps<T extends HtmlElement = HtmlElement> = Omit<
   color?: PaletteForeground;
   backgroundColor?: PaletteBackground;
   spacing?: SpacingParams;
-  as: T
+  as?: T
 };
 
 interface CssVariables {
