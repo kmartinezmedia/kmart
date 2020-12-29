@@ -7,7 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "GIT_USER=kmartinezmedia USE_SSH=1 docusaurus deploy",
+    "deploy": "GIT_USER=kmartinezmedia USE_SSH=1 CURRENT_BRANCH=master docusaurus deploy",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear"
   },
