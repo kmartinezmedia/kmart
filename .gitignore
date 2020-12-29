@@ -8,3 +8,4 @@ lib-temp
 typings
 es6
 cjs
+.gitconfig
