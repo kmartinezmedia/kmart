@@ -7,7 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "GIT_USER=kmartinezmedia USE_SSH=1 CURRENT_BRANCH=master docusaurus deploy",
+    "deploy": "yarn build && surge build/ --domain kmart.surge.sh",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear"
   },

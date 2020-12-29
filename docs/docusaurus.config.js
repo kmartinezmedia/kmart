@@ -1,8 +1,8 @@
 module.exports = {
   title: 'My Site',
   tagline: 'The tagline of my site',
-  url: 'https://kmartinezmedia.github.io',
-  baseUrl: '/kmart/',
+  url: 'https://kmart.surge.sh',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
