@@ -3,6 +3,7 @@
 .jest-*
 lib
 node_modules
+website/node_modules
 scripts/build.js
 lib-temp
 typings
