@@ -35,36 +35,42 @@ export interface FlexProps
 const createFlex = (name: 'hStack' | 'vStack') => {
   const baseClass = getFlexDirection(flexMap[name]);
 
-  const FlexComponent = <T extends HtmlElement>({
-    children,
-    dangerouslySetClassName,
-    color,
-    backgroundColor,
-    spacing,
-    flexWrap,
-    reverse,
-    as = 'div' as T,
-    ...otherProps
-  }: PropsWithChildren<FlexProps> & DynamicTag<T>) =>
-    React.createElement(
-      as,
+  const FlexComponent = forwardRef(
+    <T extends HtmlElement>(
       {
-        ...otherProps,
-        className: join(
-          baseClass,
-          getFlexDirection(reverse ? (`${flexMap[name]}Reverse` as const) : undefined),
-          getSpacing(spacing),
-          getForeground(color),
-          getBackground(backgroundColor),
-          getFlexWrap(flexWrap),
-          dangerouslySetClassName
-        ),
-      },
-      children
-    );
+        children,
+        dangerouslySetClassName,
+        color,
+        backgroundColor,
+        spacing,
+        flexWrap,
+        reverse,
+        as = 'div' as T,
+        ...otherProps
+      }: PropsWithChildren<FlexProps> & DynamicTag<T>,
+      ref: React.Ref<T>
+    ) =>
+      React.createElement(
+        as,
+        {
+          ...otherProps,
+          ref,
+          className: join(
+            baseClass,
+            getFlexDirection(reverse ? (`${flexMap[name]}Reverse` as const) : undefined),
+            getSpacing(spacing),
+            getForeground(color),
+            getBackground(backgroundColor),
+            getFlexWrap(flexWrap),
+            dangerouslySetClassName
+          ),
+        },
+        children
+      )
+  );
 
   FlexComponent.displayName = kebabCase(name);
-  return forwardRef(FlexComponent);
+  return FlexComponent;
 };
 
 export const HStack = createFlex('hStack');

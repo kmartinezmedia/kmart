@@ -4,7 +4,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
-import { Text } from 'kmart';
+import { Display1, Title1 } from 'kmart';
 
 import styles from './styles.module.css';
 
@@ -66,12 +66,12 @@ function Home() {
     >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
-          <Text.Display1 color="positiveForeground" textAlign="center">
+          <Display1 as="h1" color="positiveForeground" textAlign="center">
             {siteConfig.title}
-          </Text.Display1>
-          <Text.Title1 color="positiveForeground" textAlign="center">
+          </Display1>
+          <Title1 as="h2" color="positiveForeground" textAlign="center">
             {siteConfig.tagline}
-          </Text.Title1>
+          </Title1>
           <div className={styles.buttons}>
             <Link
               className={clsx(

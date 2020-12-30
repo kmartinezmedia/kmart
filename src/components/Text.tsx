@@ -16,38 +16,44 @@ const createText = (name: Typography) => {
   const isNumber = ['label2', 'caption'].includes(name);
   const baseClass = getTypography(name);
 
-  const TextComponent = <T extends HtmlElement>({
-    children,
-    backgroundColor,
-    color = 'foreground',
-    textAlign = 'start',
-    nowrap = false,
-    dangerouslySetClassName,
-    spacing,
-    as,
-    ...otherProps
-  }: PropsWithChildren<TextProps> & DynamicTag<T>) => {
-    return React.createElement(
-      as,
+  const TextComponent = forwardRef(
+    <T extends HtmlElement>(
       {
-        ...otherProps,
-        className: join(
-          getBackground(backgroundColor),
-          getForeground(color),
-          getTextAlign(textAlign),
-          getSpacing(spacing),
-          getHelper(nowrap ? 'nowrap' : undefined),
-          getHelper(isNumber ? 'tabularNumber' : undefined),
-          baseClass,
-          dangerouslySetClassName
-        ),
-      },
-      children
-    );
-  };
+        children,
+        backgroundColor,
+        color = 'foreground',
+        textAlign = 'start',
+        nowrap = false,
+        dangerouslySetClassName,
+        spacing,
+        as,
+        ...otherProps
+      }: PropsWithChildren<TextProps> & DynamicTag<T>,
+      ref: React.Ref<T>
+    ) => {
+      return React.createElement(
+        as,
+        {
+          ...otherProps,
+          ref,
+          className: join(
+            getBackground(backgroundColor),
+            getForeground(color),
+            getTextAlign(textAlign),
+            getSpacing(spacing),
+            getHelper(nowrap ? 'nowrap' : undefined),
+            getHelper(isNumber ? 'tabularNumber' : undefined),
+            baseClass,
+            dangerouslySetClassName
+          ),
+        },
+        children
+      );
+    }
+  );
 
   TextComponent.displayName = pascalCase(name);
-  return forwardRef(TextComponent);
+  return TextComponent;
 };
 
 export const Display1 = createText('display1');

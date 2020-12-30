@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentProps } from 'react';
 import * as CSS from 'csstype';
 import { CamelCase, KebabCase, ReadonlyDeep } from 'type-fest';
 
@@ -135,7 +135,7 @@ export interface SpacingProps {
 
 export type DynamicTag<T extends HtmlElement> = {
   as: T;
-} & ComponentPropsWithRef<T>;
+} & ComponentProps<T>;
 
 export interface TextProps
   extends DefaultWebProps,
