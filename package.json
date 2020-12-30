@@ -1,7 +1,7 @@
 {
   "name": "root",
   "private": true,
-  "version": "2.7.14",
+  "version": "2.7.15",
   "scripts": {
     "build:buildScript": "npx babel --config-file ./scripts/babel.config.js scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
     "build:linariaScript": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
