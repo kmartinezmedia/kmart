@@ -1,45 +1,71 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, PropsWithChildren } from 'react';
 
-import { getBackground, getFlex, getFlexWrap, getForeground, getSpacing } from '@kmart/css';
-import { DefaultComponentProps, HtmlForwardedRef } from '@kmart/types';
-import { join } from '@kmart/utils';
+import {
+  FlexWrapProps,
+  getBackground,
+  getFlexDirection,
+  getFlexWrap,
+  getForeground,
+  getSpacing,
+} from '@kmart/css';
+import {
+  BackgroundColorProps,
+  ColorProps,
+  DefaultWebProps,
+  DynamicTag,
+  HtmlElement,
+  SpacingProps,
+} from '@kmart/types';
+import { join, kebabCase } from '@kmart/utils';
 
-export type FlexProps = {
-  flexWrap?: Parameters<typeof getFlexWrap>[number];
-} & DefaultComponentProps<'div'>;
+const flexMap = {
+  hStack: 'row',
+  vStack: 'column',
+} as const;
 
-const createFlex = (className: string, displayName: string) => {
-  const FlexComponent = (
-    {
-      children,
-      dangerouslySetClassName,
-      color,
-      backgroundColor,
-      spacing,
-      flexWrap,
-      ...otherProps
-    }: FlexProps,
-    ref?: HtmlForwardedRef<'div'>
-  ) => (
-    <div
-      ref={ref}
-      className={join(
-        className,
-        getSpacing(spacing),
-        getForeground(color),
-        getBackground(backgroundColor),
-        getFlexWrap(flexWrap),
-        dangerouslySetClassName
-      )}
-      {...otherProps}
-    >
-      {children}
-    </div>
-  );
+export interface FlexProps
+  extends DefaultWebProps,
+    SpacingProps,
+    FlexWrapProps,
+    BackgroundColorProps,
+    ColorProps {
+  reverse?: boolean;
+}
 
-  FlexComponent.displayName = displayName;
+const createFlex = (name: 'hStack' | 'vStack') => {
+  const baseClass = getFlexDirection(flexMap[name]);
+
+  const FlexComponent = <T extends HtmlElement>({
+    children,
+    dangerouslySetClassName,
+    color,
+    backgroundColor,
+    spacing,
+    flexWrap,
+    reverse,
+    as = 'div' as T,
+    ...otherProps
+  }: PropsWithChildren<FlexProps> & DynamicTag<T>) =>
+    React.createElement(
+      as,
+      {
+        ...otherProps,
+        className: join(
+          baseClass,
+          getFlexDirection(reverse ? (`${flexMap[name]}Reverse` as const) : undefined),
+          getSpacing(spacing),
+          getForeground(color),
+          getBackground(backgroundColor),
+          getFlexWrap(flexWrap),
+          dangerouslySetClassName
+        ),
+      },
+      children
+    );
+
+  FlexComponent.displayName = kebabCase(name);
   return forwardRef(FlexComponent);
 };
 
-export const HStack = createFlex(getFlex('hStack'), 'HStack');
-export const VStack = createFlex(getFlex('vStack'), 'VStack');
+export const HStack = createFlex('hStack');
+export const VStack = createFlex('vStack');

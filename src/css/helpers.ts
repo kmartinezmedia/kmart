@@ -4,7 +4,7 @@
  */
 import { css } from '@linaria/core';
 
-export const noLineWrap = css`
+export const nowrap = css`
   white-space: nowrap;
 `;
 

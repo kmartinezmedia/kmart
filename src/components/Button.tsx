@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { ComponentProps, FC, useState } from 'react';
 
 import {
   getBackground,
@@ -7,14 +7,14 @@ import {
   getForeground,
   getSpacing,
 } from '@kmart/css';
-import { DefaultComponentProps } from '@kmart/types';
+import { DefaultWebProps, SpacingProps } from '@kmart/types';
 import { join } from '@kmart/utils';
 
-export type ButtonProps = DefaultComponentProps<'button'> & {
+export interface ButtonProps extends DefaultWebProps, SpacingProps, ComponentProps<'button'> {
   variant?: 'primary' | 'secondary' | 'positive' | 'negative';
-};
+}
 
-export const Button: FunctionComponent<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   children,
   type = 'button',
   variant = 'primary',

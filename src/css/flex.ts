@@ -1,12 +1,17 @@
 import { css } from '@linaria/core';
 
-export const hStack = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+export const flex1 = css`
+  flex: 1;
 `;
 
-export const vStack = css`
-  display: flex;
-  flex-direction: column;
+export const flex2 = css`
+  flex: 2;
+`;
+
+export const flex3 = css`
+  flex: 3;
+`;
+
+export const flexAuto = css`
+  flex: auto;
 `;
