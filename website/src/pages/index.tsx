@@ -4,7 +4,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
-import { Display1, Title1 } from 'kmart';
+import { Display1, Title1, VStack } from 'kmart';
 
 import styles from './styles.module.css';
 
@@ -64,7 +64,7 @@ function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <VStack as="header" spacing={{ vertical: 4 }} backgroundColor="positive">
         <div className="container">
           <Display1 as="h1" color="positiveForeground" textAlign="center">
             {siteConfig.title}
@@ -84,7 +84,7 @@ function Home() {
             </Link>
           </div>
         </div>
-      </header>
+      </VStack>
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>

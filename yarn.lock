@@ -1091,10 +1091,10 @@
     eslint-plugin-simple-import-sort "^7.0.0"
     prettier "^2.2.1"
 
-"@kmart/palette.macro@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@kmart/palette.macro/-/palette.macro-1.5.0.tgz#0a8024858315f5ad8e594b1a2398f0c52ea1f64e"
-  integrity sha512-3KjRipqDMWY6hbCLKiCQhpo8saruFINdYOf/ptn3wvKyX0s/cp23NzfapnyrtHX0cqgE3Jr65XCbIrO3PgcgXA==
+"@kmart/palette.macro@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@kmart/palette.macro/-/palette.macro-1.5.1.tgz#052aec6b31e1f7d1fd497b2a5a54f7b20d3b898d"
+  integrity sha512-6c5+qyJKPhKJy43FwoXxpHNt5pvjmTVKU13YCLEX2dRr3iFdh/kuoQxXbOoO3Yh+uBmN6ggD1QfPqMoavxrr6Q==
   dependencies:
     "@babel/parser" "^7.12.11"
     "@kmart/types" latest
