@@ -3,7 +3,6 @@
   "private": true,
   "version": "2.7.12",
   "scripts": {
-    "prebuild": "yarn lint",
     "build:buildScript": "npx babel --config-file ./scripts/babel.config.js scripts/build.ts --out-file scripts/build.js && node scripts/build.js",
     "build:linariaScript": "npx babel --config-file ./scripts/babel.config.js scripts/linaria.ts --out-file scripts/linaria.js && node scripts/linaria.js",
     "build": " yarn build:linariaScript && yarn build:buildScript",
