@@ -11,15 +11,18 @@ type ThemeProviderProps = {
   scale?: Scale;
   spectrum?: SpectrumMode;
   palette?: PaletteConfigTransformed;
+  dangerouslySetClassName?: string;
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = React.memo(
-  ({ scale, spectrum, palette, children }) => {
+  ({ scale, spectrum, palette, dangerouslySetClassName, children }) => {
     return (
       <ScaleProvider value={scale}>
         <SpectrumProvider value={spectrum}>
           <PaletteProvider value={palette}>
-            <ThemeManager>{children}</ThemeManager>
+            <ThemeManager dangerouslySetClassName={dangerouslySetClassName}>
+              {children}
+            </ThemeManager>
           </PaletteProvider>
         </SpectrumProvider>
       </ScaleProvider>

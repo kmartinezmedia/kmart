@@ -2,6 +2,7 @@ export * from './getBackground';
 export * from './getBorderColor';
 export * from './getBorderRadius';
 export * from './getBorderWidth';
+export * from './getFlex';
 export * from './getFlexDirection';
 export * from './getFlexWrap';
 export * from './getForeground';
