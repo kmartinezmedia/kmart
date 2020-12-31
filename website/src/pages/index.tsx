@@ -64,7 +64,7 @@ function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <VStack as="header" spacing={{ vertical: 4 }} backgroundColor="positive">
+      <VStack as="header" spacing={{ vertical: 8 }} backgroundColor="positive">
         <div className="container">
           <Display1 as="h1" color="positiveForeground" textAlign="center">
             {siteConfig.title}
