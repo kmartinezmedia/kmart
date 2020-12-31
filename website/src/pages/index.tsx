@@ -60,11 +60,8 @@ function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
-      <VStack as="header" spacing={{ vertical: 8 }} backgroundColor="positive">
+    <Layout title={siteConfig.title} description="Description will go into a meta tag in <head />">
+      <VStack as="header" spacing={{ vertical: 8 }} backgroundColor="negative">
         <div className="container">
           <Display1 as="h1" color="positiveForeground" textAlign="center">
             {siteConfig.title}

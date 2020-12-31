@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'My Site',
+  title: 'kmart ui',
   tagline: 'The tagline of my site',
   url: 'https://kmart.surge.sh',
   baseUrl: '/',
@@ -10,7 +10,7 @@ module.exports = {
   projectName: 'kmart', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'kmart ui',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
